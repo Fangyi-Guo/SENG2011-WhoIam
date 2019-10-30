@@ -9,11 +9,11 @@ class Blood(models.Model):
     takendate = models.DateField(("blood taken date"), auto_now=False, auto_now_add=False)
     expdate = models.DateField(("blood expire date"), auto_now=False, auto_now_add=False)#whne to expire
     donor = models.CharField(max_length=50)
-    disposeddate = models.DateField(("blood disposed date"), auto_now=False, auto_now_add=False)#when was taken
+    disposeddate = models.DateField(("blood disposed date"), auto_now=False, auto_now_add=False, null=True)#when was taken
     isTested = models.BooleanField()
 
     def __str__(self):
-        return self.bloodid
+        return str(self.bloodid)+str(self.bloodtype)
 
 class Reservation(models.Model):
     rsvId = models.IntegerField()
