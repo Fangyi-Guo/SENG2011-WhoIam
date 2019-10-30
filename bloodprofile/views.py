@@ -11,7 +11,8 @@ from datetime import datetime, timezone
 from django.db.models import Q
 
 def home(request):
-    return render(request, "bloodprofile/homepage.html")
+    return render(request, "bloodprofile/homepage.html", {'results': Blood.objects.all()})
+
 
 
 def searchBlood(request):
