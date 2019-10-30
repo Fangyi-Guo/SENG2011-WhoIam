@@ -13,7 +13,7 @@ class Blood(models.Model):
     isTested = models.BooleanField()
 
     def __str__(self):
-        return str(self.bloodid)+str(self.bloodtype)
+        return str(self.bloodid)
 
 class Reservation(models.Model):
     rsvId = models.IntegerField()

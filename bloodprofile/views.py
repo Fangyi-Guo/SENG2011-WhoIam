@@ -28,3 +28,5 @@ def searchBlood(request):
             return render(request, 'homepage.html', {'result': Blood.objects.all()})
     else:
         return render(request, 'homepage.html')
+#def bookingBlood(request):
+
