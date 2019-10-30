@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from .models import Blood, Book  #hopefully works?
-import requests
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
@@ -28,4 +27,4 @@ def searchBlood(request):
             #output all objects to the page
             return render(request, 'homepage.html', {'result': Blood.objects.all()})
     else:
-        return render(request, 'search.html')
+        return render(request, 'homepage.html')

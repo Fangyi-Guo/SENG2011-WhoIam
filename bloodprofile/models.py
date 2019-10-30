@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-import numpy as np
+#import numpy as np
 
 class Blood(models.Model):
-    bloodid = models.IntegerField(min_length=0)
+    bloodid = models.IntegerField()
     bloodtype = models.CharField(max_length=50)
     volume = models.FloatField()
     takendate = models.DateField(("blood taken date"), auto_now=False, auto_now_add=False)
@@ -12,13 +12,11 @@ class Blood(models.Model):
     disposeddate = models.DateField(("blood disposed date"), auto_now=False, auto_now_add=False)#when was taken
     isTested = models.BooleanField()
 
-    class Meta:
-        unique_together = ["beachname",  "lat", "lng"]
     def __str__(self):
         return self.bloodid
 
 class Reservation(models.Model):
-    rsvId = models.IntegerField(min_length=0)
+    rsvId = models.IntegerField()
     bloodType = models.CharField(max_length=50)
     rsvVolume = models.FloatField()
     userReserved = models.CharField(max_length=50, null=True)

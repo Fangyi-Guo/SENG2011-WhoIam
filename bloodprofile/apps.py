@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class BloodConfig(AppConfig):
-    name = 'Blood'
+    name = 'bloodprofile'
