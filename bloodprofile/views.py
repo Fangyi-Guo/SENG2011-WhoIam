@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 from django.db.models import Q
+import datetime
 
 def home(request):
     return render(request, "bloodprofile/homepage.html", {'results': Blood.objects.all()})
@@ -16,8 +17,9 @@ def home(request):
 
 
 def searchBlood(request):
-    if request.method == 'POST':
-        ctt = request.POST['content']
+    if request.method == 'GET':
+        ctt = request.GET.get('searchResult',False)
+        print (ctt)
         if ctt:
             #only search by blood id or blood type in database
             now=datetime.date.today()

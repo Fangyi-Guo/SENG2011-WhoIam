@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="img/favicon.png" type="image/png">
-    <title href="{% url 'blood-search' %}">Vampire</title>
+    <title>Vampire</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/themify-icons.css">
@@ -106,8 +106,8 @@
                         </span>
                         <h3 class="card-service__title">{{ result.bloodtype }}</h3>
                         <p class="card-service__subtitle">{{ result.donor }}</p>
-                        <p class="card-service__subtitle">{{ result.volume }}</p>
-                        <a class="card-service__link" href="#">Booked</a>
+                        <p class="card-service__subtitle">{{ result.takendate }}</p>
+                        <a class="card-service__link" href="#">Book now!</a>
                     </div>
                 </div>
                 {% endfor%}
@@ -209,8 +209,12 @@
                         <h3>Make an Resveration</h3>
                         <form action="#">
                             <div class="form-group">
-                                <label>Full Name</label>
+                                <label>Type of blood</label>
                                 <input type="text" placeholder="Your Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Volumn</label>
+                                <input type="email" placeholder="Your Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email'" required> 
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
@@ -238,19 +242,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 single-footer-widget">
-                        <h4>Newsletter</h4>
-                        <p>You can trust us. we only send promo offers,</p>
+                        <h4>Seach for Blood items</h4>
+                        <p>Search blood by type, donor to took date</p>
                         <div class="form-wrap" id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                            method="get" class="form-inline">
-                            <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
-                            required="" type="email" />
-                            <button class="click-btn btn btn-default">
+                            <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
+                            <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
+                            required="" />
+                            <button class="click-btn btn btn-default" name = "button" type = "submit">
                                 <i class="ti-arrow-right"></i>
                             </button>
-                            <div style="position: absolute; left: -5000px;">
-                                <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text" />
-                            </div>
 
                             <div class="info"></div>
                         </form>
