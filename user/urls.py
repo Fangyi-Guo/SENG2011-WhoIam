@@ -19,9 +19,11 @@ from django.conf.urls import url
 from bloodprofile import views as blood_view
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bloodprofile.urls')),
-    url(r'^(?P<bloodid>\d+)/book_blood/', blood_view.bookBlood, name='blood-booking')
+    url(r'^(?P<bloodid>\d+)/book_blood/', blood_view.bookBlood, name='blood-booking'),
+    url(r'/reservation/', blood_view.makeResveration, name='reservation')
     #url(r'beachProfile/', blood_view.bloodProfile, name='beachProfile'),
 ]

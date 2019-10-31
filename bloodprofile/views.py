@@ -12,6 +12,7 @@ from django.db.models import Q
 from .forms import BookForm, ReserveForm
 import datetime
 from django.views.decorators.csrf import csrf_protect
+from django.template import RequestContext
 
 def home(request):
     return render(request, "bloodprofile/homepage.html")
@@ -21,7 +22,6 @@ def home(request):
 def searchBlood(request):
     if request.method == 'GET':
         ctt = request.GET.get('searchResult',False)
-        print (ctt)
         if ctt:
             #only search by blood id or blood type in database
             now=datetime.date.today()
@@ -60,12 +60,12 @@ def bookBlood(request, id):
 
     return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form': form})
 
-@csrf_protect
 def makeResveration(request):
+    print (request)
     # if this is a POST request we need to process the form data
+    form = ReserveForm(request.POST)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = ReserveForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             res = Reservation()
@@ -73,14 +73,9 @@ def makeResveration(request):
             res.rsvVolume = form.cleaned_data['rsvVolume']
             res.address = form.cleaned_data['address']
             res.rsvDate = form.cleaned_data['rsvDate']
-            res.userReserved = request.user
+            #res.userReserved = request.user
             res.save()
-            return redirect('bloodprofile/homepage.html')
-
-    # if a GET (or any other method) we'll create a blank form
-    #else:
-        #form = NameForm()
-
-    #return render(request, 'name.html', {'form': form})
+            return redirect('bloodprofile/Reservation.html')
+    return render(request, 'bloodprofile/Reservation.html', {'form': form},RequestContext(request))
 
 

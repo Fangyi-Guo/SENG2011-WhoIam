@@ -53,7 +53,7 @@
                             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
                             <li class="nav-item"><a class="nav-link" href="about-us.html">Login</a></li> 
                             <li class="nav-item"><a class="nav-link" href="department.html">Register</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="doctors.html">Contact us</a></li>    
+                            <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservation</a></li>    
                         </ul>
                     </div>
                 </div>
@@ -126,128 +126,7 @@
         </div>
     </div>    
     <!--================ Service section end =================-->    
-<!--================ appointment Area Starts =================-->
-<section class="appointment-area area-padding">
-    <div class="container">
 
-        <div class="appointment-inner">
-            <div class="row">
-                <div class="col-sm-12 col-lg-5 offset-lg-1">
-                    <h3>Have Some Questions?</h3>
-                    <div class="accordion" id="accordionExample">
-
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        God male gathering them it female which green cattle?
-                                    </button>
-
-                                </h5>
-                            </div>
-
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Moving creepeth moved upon man grass two days?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        God male gathering them it female which green cattle?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingFour">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        Saw isn't likeness beginning yielding land days she?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header" id="headingFive">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        Saw isn't likeness beginning yielding land days she?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="appointment-form">
-                        <h3>Make Resveration</h3>
-                        <form action="{% url 'reservation' %}" method = "post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label>Type of blood</label>
-                                <input type="text" placeholder="Type of blood" name = "bloodType" method = 'POST' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type of blood'" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Volumn(ml)</label>
-                                <input type="text" placeholder="Volumn" name = "rsvVolume" onfocus="this.placeholder = ''" onblur="this.placeholder = 'required volumn'" required> 
-                            </div>
-                            <div class="form-group">
-                                <label>Requested date</label>
-                                <input type="text" placeholder="mm/dd/yyyy" name = "rsvDate" onfocus="this.placeholder = ''" onblur="this.placeholder = 'mm/dd/yyyy'" required> 
-                            </div>
-                            <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" placeholder="Address" name = "address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Requested date'" required> 
-                            </div>
-                            <button class="main_btn" type = "submit">Make Resveration</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-    </div>
-</section>
-<!--================ appointment Area End =================-->
 
     <!-- start footer Area -->
         <footer class="footer-area area-padding-top">
@@ -258,8 +137,7 @@
                         <p>Search blood by type, donor or took date</p>
                         <div class="form-wrap" id="mc_embed_signup">
                             <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
-                            <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
-                            required="" />
+                            <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'" required="" />
                             <button class="click-btn btn btn-default" name = "button" type = "submit">
                                 <i class="ti-arrow-right"></i>
                             </button>
