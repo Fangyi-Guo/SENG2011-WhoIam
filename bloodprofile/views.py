@@ -58,3 +58,12 @@ def bookBlood(request, id):
 
     return render(request, 'bloodprofile/homepage.html', {'blood':blood, 'form': form})
 
+def makeResveration(request):
+    if request.method == 'POST': 
+        bloodType = request.POST.get('type')
+        name = request.POST.get('name')
+        name = request.POST.get('name')
+        name = request.POST.get('name')
+
+
+
