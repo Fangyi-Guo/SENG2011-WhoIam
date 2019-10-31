@@ -276,6 +276,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script></script>
+    <script>
+    //this will open the hiding modal. add the modal code to above and submit will send blood id to book Blood
+    function showBookModal(){
+        var bookB = document.getElementByClass("bookButton");
+        var modal = document.getElementById("bookModal");
+        var span = document.getElementsByClassName("close")[0];
+        var i;
+        for(i=0;i < bookB.length; i++){
+            bookB[i].onclick = function() {modal.style.display = "block";}
+        }
+        span.onclick = function() {modal.style.display = "none";}
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+    </script>
 </body>
 </html>

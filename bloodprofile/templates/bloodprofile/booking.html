@@ -80,13 +80,11 @@
 
     <div style="background-color:lightblue; max-width:1000px">
     </br>
-      <form action = {% url 'add_review' blood.bloodid %} method="POST">
+      <form action = {% url 'add_booking' blood.bloodid %} method="POST">
         {% csrf_token %}
           <b>User: {{ user.username }}</b></p>
-          Volume: {{  }}<br>
+          <br>Volume: {{ form.volume }}<br>
   			  <font color=red size=2px>* this field is required</font> </p>
-  			  :<font color=red size=2px><br>* this field is required</font><br>
-  			  {{  }}<br>
   			  <br>
   			  <input type="submit" value="Submit" class="btn btn-primary">
       </form>

@@ -23,6 +23,7 @@ class Reservation(models.Model):
     rsvDate = models.DateField(("reserve blood date"), auto_now=False, auto_now_add=False)
 
 class Book(models.Model):
-    bookDate = models.DateField(("booking date"), auto_now=False, auto_now_add=False)
+    bookDate = models.DateTimeField("booking date")
     blood = models.ForeignKey(Blood, on_delete=models.CASCADE)
+    volume = models.FloatField()
     userBooked = models.CharField(max_length=50,null=True)

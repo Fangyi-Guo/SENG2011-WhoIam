@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from bloodprofile import views as blood_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('bloodprofile.urls'))
+    path('', include('bloodprofile.urls')),
+    url(r'(?P<id>\d+)/add_review/', blood_view.bookBlood, name='blood-booking')
     #url(r'beachProfile/', blood_view.bloodProfile, name='beachProfile'),
 ]
