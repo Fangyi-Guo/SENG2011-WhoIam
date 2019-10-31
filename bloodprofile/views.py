@@ -38,7 +38,7 @@ def searchBlood(request):
         return render(request, 'bloodprofile/homepage.html')
 
 @login_required
-def bookBlood(request, id):
+def blood_booking(request, id):
     # get beach id
     blood = Blood.objects.get(id = id)
     if Book.objects.filter(blood=blood, userBooked= request.user.username).exists():

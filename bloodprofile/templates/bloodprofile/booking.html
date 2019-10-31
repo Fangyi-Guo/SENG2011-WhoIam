@@ -80,7 +80,7 @@
 
     <div style="background-color:lightblue; max-width:1000px">
     </br>
-      <form action = {% url 'blood-booking' blood.bloodid %} method="POST">
+      <form action = {% url 'blood_booking' blood.id %} method="POST">
         {% csrf_token %}
         
           <b>User: {{ user.username }}</b></p>
