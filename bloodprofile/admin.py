@@ -6,7 +6,7 @@ from .models import Blood,Reservation,Book
 
 class BloodAdmin(admin.ModelAdmin):
     model = Blood
-    list_display = ('bloodid', 'bloodtype', 'volume', 'expdate', 'isTested')
+    list_display = ('bloodtype', 'volume', 'expdate', 'isTested')
     list_filter = ['bloodtype', 'expdate']
     search_fields = ['expdate']
 
@@ -18,7 +18,7 @@ class BookAdmin(admin.ModelAdmin):
 
 class ReservationAdmin(admin.ModelAdmin):
     model = Reservation
-    list_display = ('rsvId', 'bloodType', 'rsvVolume', 'rsvDate', 'userReserved')
+    list_display = ('bloodType', 'rsvVolume', 'rsvDate', 'userReserved')
     list_filter = ['rsvDate', 'userReserved']
     search_fields = ['rsvDate']
 

@@ -24,7 +24,7 @@ def searchBlood(request):
         if ctt:
             #only search by blood id or blood type in database
             now=datetime.date.today()
-            match = Blood.objects.filter(Q(bloodid__icontains=ctt)|
+            match = Blood.objects.filter(Q(id__icontains=ctt)|
                                          Q(bloodtype__icontains=ctt)
                                         )
             if match:
@@ -56,7 +56,7 @@ def bookBlood(request, id):
         booking.save()
         return redirect('bloodprofile/homepage.html')
 
-    return render(request, 'bloodprofile/homepage.html', {'blood':blood, 'form': form})
+    return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form': form})
 
 def makeResveration(request):
     if request.method == 'POST': 

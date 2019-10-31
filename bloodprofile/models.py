@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 #import numpy as np
 
 class Blood(models.Model):
-    bloodid = models.IntegerField()
+    #bloodid = models.IntegerField()
     bloodtype = models.CharField(max_length=50)
     volume = models.FloatField()
     takendate = models.DateField(("blood taken date"), auto_now=False, auto_now_add=False)
@@ -16,7 +16,7 @@ class Blood(models.Model):
         return str(self.bloodid)
 
 class Reservation(models.Model):
-    rsvId = models.IntegerField()
+    #rsvId = models.IntegerField()
     bloodType = models.CharField(max_length=50)
     rsvVolume = models.FloatField()
     userReserved = models.CharField(max_length=50, null=True)
