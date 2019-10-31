@@ -49,8 +49,10 @@ def bookBlood(request, id):
     if form.is_valid():
         #ratings = request.form['ratings']
         volume = form.cleaned_data['volume']
+        address=form.cleaned_data['bookingaddress']
         user_name = request.user.username
         booking = Book()
+        booking.bookingaddress = address
         booking.volume=volume
         booking.blood = blood
         booking.bookDate = datetime.now(timezone.utc).astimezone()
