@@ -67,8 +67,14 @@ def makeResveration(request):
         form = ReserveForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            
-            return HttpResponseRedirect('/thanks/')
+            res = Reservation()
+            res.bloodType = form.cleaned_data['bloodType']
+            res.rsvVolume = form.cleaned_data['rsvVolume']
+            res.address = form.cleaned_data['address']
+            res.rsvDate = form.cleaned_data['rsvDate']
+            res.userReserved = request.user
+            res.save()
+            return redirect('bloodprofile/homepage.html')
 
     # if a GET (or any other method) we'll create a blank form
     else:
