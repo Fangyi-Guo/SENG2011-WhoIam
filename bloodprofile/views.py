@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from django.db.models import Q
 from .forms import BookForm
 import datetime
+from django.views.decorators.csrf import csrf_protect
 
 def home(request):
     return render(request, "bloodprofile/homepage.html")
@@ -58,12 +59,23 @@ def bookBlood(request, id):
 
     return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form': form})
 
+@csrf_protect
 def makeResveration(request):
-    if request.method == 'POST': 
-        bloodType = request.POST.get('type')
-        name = request.POST.get('name')
-        name = request.POST.get('name')
-        name = request.POST.get('name')
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
 
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'name.html', {'form': form})
 
 

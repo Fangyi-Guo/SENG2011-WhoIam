@@ -216,7 +216,8 @@
                 <div class="col-lg-5">
                     <div class="appointment-form">
                         <h3>Make Resveration</h3>
-                        <form action="{% url 'reservation' %}">
+                        <form action="{% url 'reservation' %}" method = "post">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <label>Type of blood</label>
                                 <input type="text" placeholder="Type of blood" name = "type" method = 'POST' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type of blood'" required>
@@ -229,7 +230,7 @@
                                 <label>Requested date</label>
                                 <input type="text" placeholder="Requested date" name = "date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Requested date'" required> 
                             </div>
-                            <a href="#" class="main_btn" type = "submit">Make Resveration</a>
+                            <button class="main_btn" type = "submit">Make Resveration</button>
                         </form>
                     </div>
                 </div>

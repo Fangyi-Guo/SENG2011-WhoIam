@@ -6,11 +6,12 @@ from django import forms
 class ReserveForm(ModelForm):
     class Meta:
         model = Reservation
-        fields = ['bloodType', 'rsvVolume', "rsvDate"]
+        fields = ['bloodType', 'rsvVolume', "rsvDate", "address"]
         widgets = {
 		    'bloodType': TextInput(attrs={'size': 10, 'title': 'Blood Type'}),
             'rsvVolume': NumberInput(attrs={'title': 'reserved volume'}),
             'rsvDate': DateInput(format='%m/%d/%Y', attrs={'title': 'mm/dd/yyyy'})
+            'address': DateInput('size': 100, 'title': 'address')
         }
 
 class BookForm(ModelForm):
