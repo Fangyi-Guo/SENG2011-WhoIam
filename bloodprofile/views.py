@@ -4,13 +4,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
-from .models import Blood, Book  #hopefully works?
+from .models import Blood, Book, Reservation  #hopefully works?
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 from django.db.models import Q
-from .forms import BookForm
+from .forms import BookForm, ReserveForm
 import datetime
+from django.views.decorators.csrf import csrf_protect
 
 def home(request):
     return render(request, "bloodprofile/homepage.html")
@@ -59,12 +60,27 @@ def bookBlood(request, id):
 
     return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form': form})
 
+@csrf_protect
 def makeResveration(request):
-    if request.method == 'POST': 
-        bloodType = request.POST.get('type')
-        name = request.POST.get('name')
-        name = request.POST.get('name')
-        name = request.POST.get('name')
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ReserveForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            res = Reservation()
+            res.bloodType = form.cleaned_data['bloodType']
+            res.rsvVolume = form.cleaned_data['rsvVolume']
+            res.address = form.cleaned_data['address']
+            res.rsvDate = form.cleaned_data['rsvDate']
+            res.userReserved = request.user
+            res.save()
+            return redirect('bloodprofile/homepage.html')
 
+    # if a GET (or any other method) we'll create a blank form
+    #else:
+        #form = NameForm()
+
+    #return render(request, 'name.html', {'form': form})
 
 
