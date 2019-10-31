@@ -44,36 +44,8 @@
       }
       
   </style>
-
-{% block title %}<title>Beach</title>{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand/logo -->
-        <a class="navbar-brand" href="{% url 'maps-home' %}">Find Safe Beaches</a>
-        
-        <!-- Links -->
-        <ul class="navbar-nav">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
-          </li>
-          {% endif %}
-
-        </ul>
-      </nav>
-    
-    <body>
 	<div align="center">
     <b><font size=4px>Book this Blood</font></b>
     <h1 class="display-1">{{ blood }}</h1>

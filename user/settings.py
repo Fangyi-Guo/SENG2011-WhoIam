@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bloodprofile.apps.BloodConfig',
-    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
