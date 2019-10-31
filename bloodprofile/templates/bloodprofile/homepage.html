@@ -107,10 +107,41 @@
                         <h3 class="card-service__title">{{ result.bloodtype }}</h3>
                         <p class="card-service__subtitle">{{ result.donor }}</p>
                         <p class="card-service__subtitle">{{ result.takendate }}</p>
-                        <a class="card-service__link" href="#">Book now!</a>
+                        <button class="card-service__link">Book now!</button>
+                    </div>
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Book this Blood</h2>
+                        </div>
+                        <div class="modal-body">
+                        <p></p>
+                        <form action = {% url 'blood-booking' result.bloodid %} method="POST">
+                            {% csrf_token %}
+                            <b>User: {{ user.username }}</b></p>
+                            Rating: {{ form.rating }}<br>
+                            <font color=red size=2px>* this field is required</font> </p>
+                            Comment:<font color=red size=2px><br>* this field is required</font><br>
+                            {{ form.comment }}<br>
+                            <br>
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                    <h3>Modal Footer</h3>
                     </div>
                 </div>
+                </div>
                 {% endfor%}
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+               
+                
+
+                </div>
             </div>
         </div>
     </div>    
@@ -279,7 +310,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script>
     //this will open the hiding modal. add the modal code to above and submit will send blood id to book Blood
     function showBookModal(){
-        var bookB = document.getElementByClass("bookButton");
+        var bookB = document.getElementByClass("card-service__link");
         var modal = document.getElementById("bookModal");
         var span = document.getElementsByClassName("close")[0];
         var i;
