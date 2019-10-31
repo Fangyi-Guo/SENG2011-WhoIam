@@ -12,7 +12,7 @@ from django.db.models import Q
 import datetime
 
 def home(request):
-    return render(request, "bloodprofile/homepage.html", {'results': Blood.objects.all()})
+    return render(request, "bloodprofile/homepage.html")
 
 
 
@@ -27,12 +27,12 @@ def searchBlood(request):
                                          Q(bloodtype__icontains=ctt)
                                         )
             if match:
-                return render(request, 'bloodprofile/homepage.html', {'result':match})
+                return render(request, 'bloodprofile/homepage.html', {'results':match})
             else:
                 return messages.error(request, "no result found")
         else:
             #output all objects to the page
-            return render(request, 'bloodprofile/homepage.html', {'result': Blood.objects.all()})
+            return render(request, 'bloodprofile/homepage.html', {'results': Blood.objects.all()})
     else:
         return render(request, 'bloodprofile/homepage.html')
 #def bookingBlood(request):
