@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style>
       body {
-		background-image: url("https://source.unsplash.com/TXSVNFaPsr8/1536x800")
+		background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
       }
 	  h2 {
 	    padding-bottom: 20px;
@@ -52,7 +55,7 @@
 
     <div style="background-color:lightblue; max-width:1000px">
     </br>
-      <form action = {% url 'blood-booking' blood.bloodid %} method="POST">
+      <form action = {% url 'blood-booking' blood.id %} method="POST">
         {% csrf_token %}
         
           <b>User: {{ user.username }}</b></p>

@@ -107,8 +107,8 @@
                         <h3 class="card-service__title">{{ result.bloodtype }}</h3>
                         <p class="card-service__subtitle">{{ result.donor }}</p>
                         <p class="card-service__subtitle">{{ result.takendate }}</p>
-                        <button class="muti-text" 
-                        href="{% url 'blood-booking' result.id %}">Book now!</button>
+                        <a class="muti-text" 
+                        href="{% url 'blood-booking' result.id %}">Book now!</a>
                         
                     </div>
                     
