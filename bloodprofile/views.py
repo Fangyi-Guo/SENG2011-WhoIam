@@ -50,6 +50,7 @@ def bookBlood(request, id):
         volume = form.cleaned_data['volume']
         user_name = request.user.username
         booking = Book()
+        booking.volume=volume
         booking.blood = blood
         booking.bookDate = datetime.now(timezone.utc).astimezone()
         booking.userBooked = user_name
