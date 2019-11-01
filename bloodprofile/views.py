@@ -23,11 +23,18 @@ def searchBlood(request):
     if request.method == 'GET':
         ctt = request.GET.get('searchResult',False)
         if ctt:
-            #only search by blood id or blood type in database
+            #only search by blood id or blood type or volume or expire date in database
+            #YYYY-MM-DD
             now=dt.date.today()
-            match = Blood.objects.filter(Q(id__icontains=ctt)|
-                                         Q(bloodtype__icontains=ctt)
-                                        )
+            isValidDate = False
+            if('-' in ctt):
+                isValidDate = True
+            
+            if(isValidDate):
+                match = Blood.objects.filter(expdate__gte=ctt)
+            else:
+                match = Blood.objects.filter(Q(id__icontains=ctt)|Q(bloodtype__icontains=ctt)|Q(volume__gte=ctt))
+            
             if match:
                 return render(request, 'bloodprofile/homepage.html', {'results':match})
             else:
@@ -42,8 +49,8 @@ def searchBlood(request):
 def bookBlood(request, id):
     # get beach id
     blood = Blood.objects.get(id=id)
-    print(id+"hello")
-    print(blood)
+    #print(id+"hello")
+    #print(blood)
     if Book.objects.filter(blood=blood, userBooked= request.user.username).exists():
         messages.success(request, '*You have already Booked the Blood. Dont book it again unless you delete the old one.')
         return HttpResponseRedirect("/")
@@ -51,6 +58,9 @@ def bookBlood(request, id):
     if form.is_valid():
         #ratings = request.form['ratings']
         volume = form.cleaned_data['volume']
+        if(volume > blood.volume):
+             messages.success(request, '*this blood does not have so much amount of blood.')
+             return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form':form})
         address=form.cleaned_data['bookingaddress']
         user_name = request.user.username
 
