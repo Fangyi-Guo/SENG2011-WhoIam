@@ -79,7 +79,18 @@ def makeResveration(request):
             res.rsvDate = form.cleaned_data['rsvDate']
             #res.userReserved = request.user
             res.save()
-            return redirect('bloodprofile/Reservation.html')
+            return render(request, 'bloodprofile/Reservation.html', {'success':"success"})
+
     return render(request, 'bloodprofile/Reservation.html', {'form': form},RequestContext(request))
 
+def index(request):
+    
+    submitbutton= request.POST.get('Home')
 
+    if submitbutton:
+        # execute this code
+    
+        context= {'submitbutton': submitbutton}
+
+        
+    return render(request, 'Articles/index.html', context)
