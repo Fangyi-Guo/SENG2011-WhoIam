@@ -10,21 +10,19 @@ class Blood(models.Model):
     expdate = models.DateField(("blood expire date"), auto_now=False, auto_now_add=False)#whne to expire
     donor = models.CharField(max_length=50)
     disposeddate = models.DateField(("blood disposed date"), auto_now=False, auto_now_add=False, null=True)#when was taken
-    isTested = models.BooleanField()
 
-    def __str__(self):
-        return str(self.bloodid)
+    isTested = models.BooleanField()
 
 class Reservation(models.Model):
     #rsvId = models.IntegerField()
     bloodType = models.CharField(max_length=50)
     rsvVolume = models.FloatField()
-    userReserved = models.CharField(max_length=50, null=True)
+    userReserved = models.CharField(max_length=50, null=True, default='')
     rsvDate = models.DateField(("reserve blood date"), auto_now=False, auto_now_add=False)
-    address = models.CharField(max_length=60)
+    address = models.CharField(max_length=60, null=True, default='')
 
 class Book(models.Model):
-    address = models.CharField(max_length=100)
+    bookingaddress = models.CharField(max_length=100, null=True)
     bookDate = models.DateTimeField("booking date")
     blood = models.ForeignKey(Blood, on_delete=models.CASCADE)
     volume = models.FloatField()

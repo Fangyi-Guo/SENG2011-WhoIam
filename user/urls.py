@@ -21,12 +21,14 @@ from users import views as user_views
 from bloodprofile import views as blood_view
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bloodprofile.urls')),
     url(r'^register/', user_views.register, name='register'),
     url(r'^accounts/profile/', user_views.profile, name='profile'),
     url(r'^login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    url(r'(?P<id>\d+)/blood_booking/', blood_view.blood_booking, name='blood_booking')
+    url(r'^(?P<id>\d+)/blood_booking/', blood_view.bookBlood, name='blood-booking'),
+    url(r'/reservation/', blood_view.makeResveration, name='reservation')
     #url(r'beachProfile/', blood_view.bloodProfile, name='beachProfile'),
 ]

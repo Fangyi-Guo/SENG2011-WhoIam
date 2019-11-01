@@ -7,15 +7,22 @@
     <link rel="icon" href="img/favicon.png" type="image/png">
     <title>Vampire</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="vendors/animate-css/animate.css">
     <!-- main css -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+     body {
+		background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    padding: 145px;
+      }
+
+    .reservation {
+        background-color:rgba(30,200,200,0.5); max-width:1000px
+    }
+    </style>
 </head>
 <body>
 
@@ -26,22 +33,12 @@
                 <div class="float-left">
                     <a class="dn_btn" href="mailto:medical@example.com"><i class="ti-email"></i>Vampire@example.com</a>
                 </div>
-                <div class="float-right">
-                    <ul class="list header_social">
-                        <li><a href="#"><i class="ti-facebook"></i></a></li>
-                        <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                        <li><a href="#"><i class="ti-linkedin"></i></a></li>
-                        <li><a href="#"><i class="ti-skype"></i></a></li>
-                        <li><a href="#"><i class="ti-vimeo-alt"></i></a></li>
-                    </ul>   
-                </div>
             </div>  
         </div>  
-        <div class="main_menu">
+        <!--<div class="main_menu">-->
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -50,15 +47,15 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="about-us.html">Login</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="department.html">Register</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="doctors.html">Contact us</a></li>    
+                            <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="#">Login</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="#">Register</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservation</a></li>    
                         </ul>
                     </div>
                 </div>
             </nav>
-        </div>
+        <!--</div>-->
     </header>
     <!--================Header Menu Area =================-->
 
@@ -72,10 +69,10 @@
           >
             <div class="mb-3 mb-md-0">
               <h2>Vampire</h2>
-              <p>Belding years moveth earth green behold wherein</p>
+              <p>we organise mobile blood service, deliver blood to registered organisations</p>
             </div>
             <div class="page_link">
-              <a href="homepage.html">Home</a>
+              <a href="homepage.html">Home/</a>
               <a href="homepage.html">Vampire</a>
             </div>
           </div>
@@ -87,17 +84,18 @@
 
      
 <!--================ Service section start =================-->  
-
+    {% if results %}
     <div class="service-area area-padding-top">
         <div class="container">
             <div class="area-heading row">
                 <div class="col-md-5 col-xl-4">
-                    <h3>Awesome<br>
-                    Service</h3>
+                    <h3>Matching<br>
+                    items</h3>
                 </div>
             </div>
             
             <div class="row">
+
                 {% for result in results %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
@@ -107,7 +105,8 @@
                         <h3 class="card-service__title">{{ result.bloodtype }}</h3>
                         <p class="card-service__subtitle">{{ result.donor }}</p>
                         <p class="card-service__subtitle">{{ result.takendate }}</p>
-                        <button class="card-service__link" href="{% url 'blood_booking' result.id %}">Book now!</button>
+                        <a class="muti-text" 
+                        href="{% url 'blood-booking' result.id %}">Book now!</a>
                     </div>
                     
                 </div>
@@ -115,18 +114,18 @@
                 {% endfor%}
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
-
-               
-                
-
                 </div>
             </div>
         </div>
-    </div>    
+    </div>  
+    {% elif error %}
+    <div class="area-heading row">
+        <div class="col-md-5 col-xl-4">
+            <h3> Sorry no matching result </h3>
+        </div>
+    </div>
+    {% endif %}  
     <!--================ Service section end =================-->    
-<!--================ appointment Area Starts =================-->
-<section class="appointment-area area-padding">
-    <div class="container">
 
         <div class="appointment-inner">
             <div class="row">
@@ -213,24 +212,17 @@
 
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="reservation">
                     <div class="appointment-form">
-                        <h3>Make Resveration</h3>
-                        <form action="{% url 'reservation' %}">
-                            <div class="form-group">
-                                <label>Type of blood</label>
-                                <input type="text" placeholder="Type of blood" name = "type" method = 'POST' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type of blood'" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Volumn</label>
-                                <input type="text" placeholder="Volumn" name = "volumn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'required volumn'" required> 
-                            </div>
-                            <div class="form-group">
-                                <label>Requested date</label>
-                                <input type="text" placeholder="Requested date" name = "date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Requested date'" required> 
-                            </div>
-                            <a href="#" class="main_btn" type = "submit">Make Resveration</a>
-                        </form>
+                        <h4>Seach for Blood items</h4>
+                        <p>Search blood by type, donor or took date</p>
+                            <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
+                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'" required="" />
+                                    <button class="click-btn btn btn-default" name = "button" type = "submit">
+                                        <i class="ti-arrow-right">Search</i>
+                                    </button>
+                                    <div class="info"></div>
+                            </form>
                     </div>
                 </div>
             </div>
@@ -248,14 +240,12 @@
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 single-footer-widget">
                         <h4>Seach for Blood items</h4>
-                        <p>Search blood by type, donor to took date</p>
+                        <p>Search blood by type, donor or took date</p>
                         <div class="form-wrap" id="mc_embed_signup">
                             <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
-                            <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
+                            <i class="search"><input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
                             required="" />
-                            <button class="click-btn btn btn-default" name = "button" type = "submit">
-                                <i class="ti-arrow-right"></i>
-                            </button>
+                            <button class="click-btn btn btn-default" name = "button" type = "submit">Search</button></i>
 
                             <div class="info"></div>
                         </form>

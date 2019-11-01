@@ -1,14 +1,18 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="../../static/users/style">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style>
       body {
-		background-image: url("https://source.unsplash.com/TXSVNFaPsr8/1536x800")
+		background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+    padding: 145px;
       }
+
+    
 	  h2 {
 	    padding-bottom: 20px;
 	  }
@@ -17,74 +21,33 @@
     }
     
       .form-horizontal {
-        display:inline-block; }
-      .star-rating {
-          direction: rtl;
-          display: inline-block;
-          padding: 20px
-      }
-
-      .star-rating input[type=radio] {
-          display: none
-      }
-
-      .star-rating label {
-          color: #bbb;
-          font-size: 50px;
-          padding: 0;
-          cursor: pointer;
-          -webkit-transition: all .3s ease-in-out;
-          transition: all .3s ease-in-out
-      }
-
-      .star-rating label:hover,
-      .star-rating label:hover ~ label,
-      .star-rating input[type=radio]:checked ~ label {
-          color: #f2b600
+        display:inline-block; 
       }
       
   </style>
-
-{% block title %}<title>Beach</title>{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand/logo -->
-        <a class="navbar-brand" href="{% url 'maps-home' %}">Find Safe Beaches</a>
-        
-        <!-- Links -->
-        <ul class="navbar-nav">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
-          </li>
-          {% endif %}
-
-        </ul>
-      </nav>
-    
-    <body>
 	<div align="center">
     <b><font size=4px>Book this Blood</font></b>
-    <h1 class="display-1">{{ blood }}</h1>
+    <h1 class="display-1" style="font-family:Verdana;font-size:40px">Blood ID: {{ blood.id }}</h1>
 
-    <div style="background-color:lightblue; max-width:1000px">
+    <div style="background-color:rgba(40,110,110,0.5); max-width:1000px; ">
     </br>
-      <form action = {% url 'blood_booking' blood.id %} method="POST">
+      <form action = {% url 'blood-booking' blood.id %} method="POST">
         {% csrf_token %}
         
-          <b>User: {{ user.username }}</b></p>
-          <br>Volume: {{ form.volume }}<br>
+          <b style="font-style:italic; font-size:25px">User: {{ user.username }}</b></p>
+          <br><a style="font-weight:bold">Volume: </a>{{ form.volume }}<br>
+  			  <font color=red size=2px>* this field is required</font> </p>
+          {% if messages %}
+                {% for message in messages %}
+                <div>
+                  {{ message }}
+                </div>
+              {% endfor%}
+          {% endif %}
+
+          <br><a style="font-weight:bold">Address to send: </a>{{ form.bookingaddress }}<br>
   			  <font color=red size=2px>* this field is required</font> </p>
   			  <br>
   			  <input type="submit" value="Submit" class="btn btn-primary">
