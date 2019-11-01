@@ -70,6 +70,8 @@ def bookBlood(request, id):
         booking.blood = blood
         booking.bookDate = datetime.now(timezone.utc).astimezone()
         booking.userBooked = user_name
+        amount = booking.reduce_amount(volume)
+        blood.update(volume=amount)
         booking.save()
         return redirect('bloodprofile/homepage.html')
 

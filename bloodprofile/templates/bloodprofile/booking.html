@@ -5,12 +5,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
       body {
-        background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
+		    background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
         background-repeat: no-repeat;
-        background-size: auto;
-        background-position: center;
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
         padding: 145px;
-      }
+        }
 
     
 	  h2 {
@@ -49,8 +50,26 @@
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
                             <li class="nav-item"><a class="nav-link" href={% url 'blood-home' %}>Home</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="#">Login</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="#">Register</a></li> 
+                            <!-- Links -->
+                            <ul class="navbar-nav">
+                              {% if user.is_authenticated %}
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                              </li>
+                              
+                              {% else %}
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                              </li>
+                              {% endif %}
+                        
+                            </ul>
                             <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservation</a></li>    
                         </ul>
                     </div>
