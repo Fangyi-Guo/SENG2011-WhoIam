@@ -1,0 +1,252 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!--   <link rel="stylesheet" type="text/css" media="screen" href="../../static/users/style.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <style>
+      body {
+         background-image: url("https://source.unsplash.com/TXSVNFaPsr8/1536x800")
+      }
+      h1 {
+      text-shadow: 2px 2px 8px rgb(120, 218, 244);
+    }
+    </style>
+
+  {% block title %}<title>Beach</title>{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand/lgoo -->
+        <a class="navbar-brand" href="{% url 'maps-home' %}">Find Safe Beaches</a>
+        
+        <!-- Links -->
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+          </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+
+     <!--  <p id="insert"></p> -->
+
+  <div id="heading" class="column" style="text-align:center"> <h1 class="display-1"  id="beach">{{name}}</h1> </div>
+  <div id="title-wrapper" class="row">
+    <div id="safety" class="column" style="width: 100px;margin-left: 690px">
+    </br>
+      {% if safe %}
+        <i class="fas fa-circle" style="color:green;font-size:3em;margin-top:-10px;margin-left: 40px" title="the safety of the beach"></i>
+      {% elif halfsafe %}
+        <i class="fas fa-circle" style="color:yellow;font-size:3em;margin-top:-10px;margin-left: 40px" title="the safety of the beach"></i>
+      {% else %}
+        <i class="fas fa-circle" style="color:red;font-size:3em;margin-top:-10px;margin-left: 40px" title="the safety of the beach"></i>
+      {% endif %}
+    </div>
+    <div>
+      {% if user.is_authenticated %}
+        <div id="fav-heart">
+          {% if is_fav %}
+            <a href="?danger={{safety}}?name={{name}}?location=({{latitude}}, {{longitude}})?fav=2">
+              <i class="fas fa-heart fa-5x"></i>
+            </a>
+          {% else %}
+            <a href="?danger={{safety}}?name={{name}}?location=({{latitude}}, {{longitude}})?fav=1">
+              <i class="far fa-heart fa-5x"></i>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div id="body-wrapper" class="container" style="background-color:lightblue;width: 1000px">
+  </br>
+    <div id="current">
+      <h2 style="text-align:center">Weather Information</h2>
+      <p style="font-size:18px;text-align:center">Windspeed: {{wind}} km/h</br>Temperature: {{temp}} °C</br>UV Index: {{uvindex}}</br>Precipitation Intensity: {{precip}} mm</p>
+    </div>
+    <div id="forecast">
+      <h2 style="text-align:center">Weekly Forecast</h2>
+      <div class="row" style="margin-left: 280px">
+        <div class="column">Wed</div>
+        <div class="column" style="margin-left: 20px">Thu</div>
+        <div class="column" style="margin-left: 35px">Fri</div>
+        <div class="column" style="margin-left: 35px">Sat</div>
+        <div class="column" style="margin-left: 30px">Sun</div>
+        <div class="column" style="margin-left: 25px">Mon</div>
+        <div class="column" style="margin-left: 25px">Tue</div>
+        <div class="column" style="margin-left: 25px">Wed</div>
+      </div>
+      <div style="float:center;margin-left:270px" >
+      {% for sum in summary %}
+        {% load static %}
+        <img src="{% static sum %}" width="50" height="50">
+      {% endfor %}</p>
+      </div>
+      <div class="row" style="margin-left: 280px">
+        {% for day in dailyTemp %}
+          <div class="column">{{day}}°C &nbsp;&nbsp;&#8239;&#8239;&hairsp;&hairsp;</div>
+        {% endfor %}<!-- 
+        <div class="column" style="margin-left: 20px">{{dailyTemp}}</div>
+        <div class="column" style="margin-left: 23px">{{dailyTemp}}</div>
+        <div class="column" style="margin-left: 22px">22°C</div>
+        <div class="column" style="margin-left: 20px">18°C</div>
+        <div class="column" style="margin-left: 22px">23°C</div>
+        <div class="column" style="margin-left: 22px">22°C</div>
+        <div class="column" style="margin-left: 21px">25°C</div> -->
+      </div>
+    </div>
+  </br>
+ <div id="thumbnail"style="width:400px; margin:0 auto;">
+  </div>
+  <br>
+  <div style = "width:400px; margin:0 auto;">
+      <form method='get' action="/direction/">
+        <button type="submit" value="{{latitude}}/{{longitude}}/{{name}}" name="direction" style="display: block; max-width: 300px; margin: auto;" class="btn btn-primary">Get Directions<a href="review.html"></a></button>
+    </form>
+  </div>
+    <div id="map" style="width:400px; margin:0 auto;">
+      <form method='get' action="/direction/">
+        <button type="submit" value="{{latitude}}/{{longitude}}/{{name}}" name="direction" style="display: block; max-width: 300px; margin: auto;" class="btn btn-primary">Get Directions<a href="review.html"></a></button>
+    </form>
+    <button onclick="getphoto()">Click me</button>
+
+  </div>
+    <div id="reviews">
+      <h2 style="text-align:center">Reviews</h2>
+        <!--<button id="review" type="button" onclick="toReview()" class="btn btn-primary">Add a review<a href="users/review.html"></a></button>-->
+
+      <div style="text-align: center">
+        <div style="display: inline-block">
+          <a class="muti-text" href="{% url 'add_review' beach.id %}">Add a review</a>
+	        {% if messages %}
+              {% for message in messages %}
+                <div>
+                  {{ message }}
+                </div>
+              {% endfor%}
+          {% endif %}
+        </div>
+        </br>
+        <div>
+            <h4>Average Rating</h4>
+          {% if average is None %}
+            {% with ''|center:rating as range %}
+              {% for i in range %}
+                <i class="fa fa-star checked" style="color: rgb(0, 0, 0); font-size: 35px;"></i>
+              {% endfor %}
+            {% endwith %}
+          {% else %}
+            {% with ''|center:average as range %}
+              {% for i in range %}
+                <i class="fa fa-star checked" style="color: orange; font-size: 35px;"></i>
+              {% endfor %}
+            {% endwith %}
+          {% endif %}
+        </div>
+      </div>
+      
+      </br>
+
+      <h4 style="text-align:center"> User Reviews ({{ beach.review_set.count }}) </h4>
+        {% if beach.review_set.all %}
+          <div class="row">
+          {% for review in beach.review_set.all %}
+            <div class="col-xs-6 col-lg-4">
+
+            {{ review.user_reviewed }}
+            <br>
+            <!-- Add icon library -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                      
+            {% with ''|center:review.rating as range %}
+              {% for i in range %}
+                <i class="fa fa-star checked" style="color: orange;"></i>
+              {% endfor %}
+            {% endwith %}
+            <br>
+            <em>{{ review.comment }}</em><br>
+            <span ><i>published in {{ review.pub_date }}</i></span><br><br>
+            </div>
+          {% endfor %}
+          </div>
+        {% else %}
+          <p style="text-align:center">No reviews for this beach yet</p>
+        {% endif %}
+  </div>
+</br>
+</br>
+
+<script>
+  function initMap() {
+    console.log('hi testing');
+  latitude = {{latitude}};
+  longitude = {{longitude}};
+  console.log(latitude)
+  console.log(longitude);
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: parseFloat(latitude), lng: parseFloat(longitude)},
+    mapTypeControl:false,
+    zoom: 17,
+    
+  });
+  var search = {
+    location: map.center,
+    radius:'500',
+    query:'beach'
+  }
+  service =  new google.maps.places.PlacesService(map);
+  service.textSearch(search, getPhotoReference);
+}
+
+/**
+ * @constructor
+ */
+function getPhotoReference(results,status){
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    var places = results;
+   // for (int i = 0; places[i])
+    var photos = places[0].photos;
+    console.log(places[0].name);
+    if (!photos){
+      return;
+    }
+    imageURL = photos[0].getUrl({maxWidth:400, maxHeight:400});
+    var thumbnail = document.getElementById('thumbnail');
+    var beachPhoto = document.createElement("img");
+    beachPhoto.setAttribute("src", imageURL);
+    thumbnail.appendChild(beachPhoto);
+    //var beachPhoto = new Image();
+    
+    //document.getElementById("beachphoto").src=imageURL;
+    console.log(imageURL);
+  }
+}
+</script>
+
+<!-- <script>
+  var x = 10;
+  document.getElementById("insert").innerHTML = x;
+
+</script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz9fmNe7CfsQAmGnhxppo45bICfIkIrc0&libraries=places&callback=initMap" async defer></script>
+     
+</body>
+</html>
+

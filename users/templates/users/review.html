@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../static/users/style">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+      body {
+		background-image: url("https://source.unsplash.com/TXSVNFaPsr8/1536x800")
+      }
+	  h2 {
+	    padding-bottom: 20px;
+	  }
+    h1 {
+      text-shadow: 2px 2px 8px rgb(120, 218, 244);
+    }
+    
+      .form-horizontal {
+        display:inline-block; }
+      .star-rating {
+          direction: rtl;
+          display: inline-block;
+          padding: 20px
+      }
+
+      .star-rating input[type=radio] {
+          display: none
+      }
+
+      .star-rating label {
+          color: #bbb;
+          font-size: 50px;
+          padding: 0;
+          cursor: pointer;
+          -webkit-transition: all .3s ease-in-out;
+          transition: all .3s ease-in-out
+      }
+
+      .star-rating label:hover,
+      .star-rating label:hover ~ label,
+      .star-rating input[type=radio]:checked ~ label {
+          color: #f2b600
+      }
+      
+  </style>
+
+{% block title %}<title>Beach</title>{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="{% url 'maps-home' %}">Find Safe Beaches</a>
+        
+        <!-- Links -->
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+          </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    
+    <body>
+	<div align="center">
+    <b><font size=4px>Add Your Review</font></b>
+    <h1 class="display-1">{{ beach }}</h1>
+
+    <div style="background-color:lightblue; max-width:1000px">
+    </br>
+      <form action = {% url 'add_review' beach.id %} method="POST">
+        {% csrf_token %}
+          <b>User: {{ user.username }}</b></p>
+          Rating: {{ form.rating }}<br>
+  			  <font color=red size=2px>* this field is required</font> </p>
+  			  Comment:<font color=red size=2px><br>* this field is required</font><br>
+  			  {{ form.comment }}<br>
+  			  <br>
+  			  <input type="submit" value="Submit" class="btn btn-primary">
+      </form>
+    </br>
+    </div>
+	</div>
+</body>
+

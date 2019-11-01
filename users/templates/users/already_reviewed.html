@@ -1,0 +1,13 @@
+</head>
+{% block content %}
+    <div class="content-section" align="left" style="FONT-SIZE:20px">
+        You have already reviewed the page. Don't review it again unless you delete the old one.
+        <br>
+        <br>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Wanna go back to <a href="/beachProfile/?danger={{beach.safety}}?name={{beach.beachname}}?location=({{beach.lat}}, {{beach.lng}})">{{ beach.beachname }}</a>?
+            </small>
+        </div>
+    </div>
+{% endblock %}

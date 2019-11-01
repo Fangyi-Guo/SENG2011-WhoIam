@@ -1,0 +1,27 @@
+
+{% block content %}
+    
+    <body>
+        <h3>Leave A Comment</h2>
+        <form method="POST">
+            {% csrf_token %}
+            User: {{ user.username }}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    
+    </body>
+
+<!--
+    <p>Total number of Comments {{ comments.count }}</p>
+    {% for comment in comments.all %}
+        <p>{{ comment.created }}</p>
+        <p>{{ comment.user }}</p>
+        <p>{{ comment.body }}</p>
+    {% empty %}
+        <p>There are no comments</p>
+    {% endfor %}
+-->
+
+{% endblock %}
+

@@ -16,12 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
+from users import views as user_views
 from bloodprofile import views as blood_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bloodprofile.urls')),
+    url(r'^register/', user_views.register, name='register'),
+    url(r'^accounts/profile/', user_views.profile, name='profile'),
+    url(r'^login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     url(r'(?P<id>\d+)/blood_booking/', blood_view.blood_booking, name='blood_booking')
     #url(r'beachProfile/', blood_view.bloodProfile, name='beachProfile'),
 ]
