@@ -23,11 +23,7 @@ from bloodprofile import views as blood_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bloodprofile.urls')),
-<<<<<<< HEAD
-    url(r'^(?P<bloodid>\d+)/book_blood/', blood_view.bookBlood, name='blood-booking'),
-    url(r'/reservation/', blood_view.makeResveration, name='reservation')
-=======
+    url(r'/reservation/', blood_view.makeResveration, name='reservation'),
     url(r'^(?P<id>\d+)/blood_booking/', blood_view.bookBlood, name='blood-booking')
->>>>>>> 8eb7ff2be8b2b667be40412ce47aef444702d170
     #url(r'beachProfile/', blood_view.bloodProfile, name='beachProfile'),
 ]

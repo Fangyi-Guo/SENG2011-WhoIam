@@ -7,15 +7,7 @@
     <link rel="icon" href="img/favicon.png" type="image/png">
     <title>Vampire</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="vendors/animate-css/animate.css">
     <!-- main css -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
      body {
@@ -45,10 +37,8 @@
         </div>  
         <!--<div class="main_menu">-->
             <nav class="navbar navbar-expand-lg navbar-light">
-<<<<<<< HEAD
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -57,26 +47,13 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="about-us.html">Login</a></li> 
-                            <li class="nav-item"><a class="nav-link" href="department.html">Register</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="#">Login</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="#">Register</a></li> 
                             <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservation</a></li>    
                         </ul>
                     </div>
                 </div>
-=======
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> 
-            <li class="nav-item">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="blood-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-            </li>
-            <!--<li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="login" role="tab" aria-controls="pills-profile" aria-selected="false">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="signup" role="tab" aria-controls="pills-contact" aria-selected="false">Signup</a>
-            </li>-->
-            </ul>
->>>>>>> 8eb7ff2be8b2b667be40412ce47aef444702d170
             </nav>
         <!--</div>-->
     </header>
@@ -92,10 +69,10 @@
           >
             <div class="mb-3 mb-md-0">
               <h2>Vampire</h2>
-              <p>Belding years moveth earth green behold wherein</p>
+              <p>we organise mobile blood service, deliver blood to registered organisations</p>
             </div>
             <div class="page_link">
-              <a href="homepage.html">Home</a>
+              <a href="homepage.html">Home/</a>
               <a href="homepage.html">Vampire</a>
             </div>
           </div>
@@ -107,17 +84,18 @@
 
      
 <!--================ Service section start =================-->  
-
+    {% if results %}
     <div class="service-area area-padding-top">
         <div class="container">
             <div class="area-heading row">
                 <div class="col-md-5 col-xl-4">
-                    <h3>Awesome<br>
-                    Service</h3>
+                    <h3>Matching<br>
+                    items</h3>
                 </div>
             </div>
             
             <div class="row">
+
                 {% for result in results %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
@@ -137,18 +115,19 @@
                 {% endfor%}
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
-
-               
-                
-
                 </div>
             </div>
         </div>
-    </div>    
+    </div>  
+    {% elif error %}
+    <div class="area-heading row">
+        <div class="col-md-5 col-xl-4">
+            <h3> Sorry no matching result </h3>
+        </div>
+    </div>
+    {% endif %}  
     <!--================ Service section end =================-->    
 
-<<<<<<< HEAD
-=======
         <div class="appointment-inner">
             <div class="row">
                 <div class="col-sm-12 col-lg-5 offset-lg-1">
@@ -236,27 +215,15 @@
                 </div>
                 <div class="reservation">
                     <div class="appointment-form">
-                        <h3>Make Resveration</h3>
-                        <form action="{% url 'reservation' %}" method = "post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label>Type of blood</label>
-                                <input type="text" placeholder="Type of blood" name = "bloodType" method = 'POST' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type of blood'" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Volumn(ml)</label>
-                                <input type="text" placeholder="Volumn" name = "rsvVolume" onfocus="this.placeholder = ''" onblur="this.placeholder = 'required volumn'" required> 
-                            </div>
-                            <div class="form-group">
-                                <label>Requested date</label>
-                                <input type="text" placeholder="mm/dd/yyyy" name = "rsvDate" onfocus="this.placeholder = ''" onblur="this.placeholder = 'mm/dd/yyyy'" required> 
-                            </div>
-                            <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" placeholder="Address" name = "address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Requested date'" required> 
-                            </div>
-                            <button class="main_btn" type = "submit">Make Resveration</button>
-                        </form>
+                        <h4>Seach for Blood items</h4>
+                        <p>Search blood by type, donor or took date</p>
+                            <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
+                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'" required="" />
+                                    <button class="click-btn btn btn-default" name = "button" type = "submit">
+                                        <i class="ti-arrow-right">Search</i>
+                                    </button>
+                                    <div class="info"></div>
+                            </form>
                     </div>
                 </div>
             </div>
@@ -266,44 +233,6 @@
 
     </div>
 </section>
-<!--================ appointment Area End =================-->
->>>>>>> 8eb7ff2be8b2b667be40412ce47aef444702d170
-
-    <!-- start footer Area -->
-        <footer class="footer-area area-padding-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2 col-sm-6 single-footer-widget">
-                        <h4>Seach for Blood items</h4>
-                        <p>Search blood by type, donor or took date</p>
-                        <div class="form-wrap" id="mc_embed_signup">
-                            <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
-                            <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'" required="" />
-                            <button class="click-btn btn btn-default" name = "button" type = "submit">
-                                <i class="ti-arrow-right">Search</i>
-                            </button>
-
-                            <div class="info"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="row footer-bottom d-flex justify-content-between">
-                <p class="col-lg-8 col-sm-12 footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-                <div class="col-lg-4 col-sm-12 footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-dribbble"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- End footer Area -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

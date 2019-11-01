@@ -31,7 +31,7 @@ def searchBlood(request):
             if match:
                 return render(request, 'bloodprofile/homepage.html', {'results':match})
             else:
-                return messages.error(request, "no result found")
+                return render(request, 'bloodprofile/homepage.html',{'error': "no matching result"})
         else:
             #output all objects to the page
             return render(request, 'bloodprofile/homepage.html', {'results': Blood.objects.all()})
@@ -66,7 +66,6 @@ def bookBlood(request, id):
     return render(request, 'bloodprofile/booking.html', {'blood':blood,'form':form})
 
 def makeResveration(request):
-    print (request)
     # if this is a POST request we need to process the form data
     form = ReserveForm(request.POST)
     if request.method == 'POST':
