@@ -257,11 +257,9 @@
                         <p>Search blood by type, donor or took date</p>
                         <div class="form-wrap" id="mc_embed_signup">
                             <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
-                            <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
+                            <i class="search"><input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'"
                             required="" />
-                            <button class="click-btn btn btn-default" name = "button" type = "submit">
-                                <i class="ti-arrow-right">Search</i>
-                            </button>
+                            <button class="click-btn btn btn-default" name = "button" type = "submit">Search</button></i>
 
                             <div class="info"></div>
                         </form>
