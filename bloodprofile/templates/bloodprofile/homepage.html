@@ -12,15 +12,39 @@
     <style>
      body {
 		background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    padding: 145px;
-      }
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        padding: 145px;
+        }
 
     .reservation {
-        background-color:rgba(30,200,200,0.5); max-width:1000px
+        background-color:rgb(200,255,255);
+        max-width:1000px
+    }
+    .collapsible {
+        background-color:#CCD1D1;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
     }
     </style>
 </head>
@@ -47,7 +71,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="blood-home">Home</a></li> 
+                            <li class="nav-item"><a class="nav-link" href={% url 'blood-home' %}>Home</a></li> 
                             <li class="nav-item"><a class="nav-link" href="#">Login</a></li> 
                             <li class="nav-item"><a class="nav-link" href="#">Register</a></li> 
                             <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservation</a></li>    
@@ -70,10 +94,6 @@
             <div class="mb-3 mb-md-0">
               <h2>Vampire</h2>
               <p>we organise mobile blood service, deliver blood to registered organisations</p>
-            </div>
-            <div class="page_link">
-              <a href="homepage.html">Home/</a>
-              <a href="homepage.html">Vampire</a>
             </div>
           </div>
         </div>
@@ -137,16 +157,16 @@
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        God male gathering them it female which green cattle?
+                                    <button class="collapsible"type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How can i request for blood?
                                     </button>
 
                                 </h5>
                             </div>
 
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
+                            <div id="0"  class="content" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div>
+                                    <p>You can book a single blood item or request for a certain amount of blood by blood type </p>
                                 </div>
                             </div>
                         </div>
@@ -154,14 +174,14 @@
                         <div class="card">
                             <div class="card-header" id="headingTwo">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Moving creepeth moved upon man grass two days?
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        How can i receive blood?
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div id="1" class="content" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
+                                    We will deliver blood items by a batmobile on the day you choose. 
                                 </div>
                             </div>
                         </div>
@@ -169,14 +189,14 @@
                         <div class="card">
                             <div class="card-header" id="headingThree">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        God male gathering them it female which green cattle?
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">    
+                                        Is it safe to use your products?
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div id="2" class="content" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
+                                    All the blood items we have were tested by authoritative al pathology or a hospital, and we remove bloods from our inventory by expire date periodly.
                                 </div>
                             </div>
                         </div>
@@ -184,14 +204,14 @@
                         <div class="card">
                             <div class="card-header" id="headingFour">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        Saw isn't likeness beginning yielding land days she?
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        How can i search for blood items?
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                            <div id= "3" class="content" aria-labelledby="headingFour" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
+                                    You can search for a blood item by blood type, expire date and donor.
                                 </div>
                             </div>
                         </div>
@@ -199,14 +219,14 @@
                         <div class="card">
                             <div class="card-header" id="headingFive">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        Saw isn't likeness beginning yielding land days she?
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        what i learned from comp3331 
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                            <div id="4" class="content" aria-labelledby="headingFive" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    Great day without sixth a lesser beginning. Their thing abundantly air moving saw fruitful lesser god. Sea abundantly blessed life set. Land. Lights divided man in deep in open upon.
+                                    memes 
                                 </div>
                             </div>
                         </div>
@@ -216,9 +236,9 @@
                 <div class="reservation">
                     <div class="appointment-form">
                         <h4>Seach for Blood items</h4>
-                        <p>Search blood by type, donor or took date</p>
+                        <p>Search blood by id, type, expire date(YYYY-MM-DD)</p>
                             <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
-                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'" required="" />
+                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = 'search blood'" onblur="this.placeholder = 'Your Email Address'" required="" />
                                     <button class="click-btn btn btn-default" name = "button" type = "submit">
                                         <i class="ti-arrow-right">Search</i>
                                     </button>
@@ -237,7 +257,55 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script>
-    </script>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    coll[0].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("0");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })   
+    coll[1].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("1");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })  
+    coll[2].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("2");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })  
+    var coll = document.getElementsByClassName("collapsible");
+    coll[3].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("3");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })  
+
+    coll[4].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("4");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })       
+</script>
 </body>
 </html>
