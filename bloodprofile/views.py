@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 from django.db.models import Q
 from .forms import BookForm, ReserveForm
-import datetime
+import datetime as dt
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 
@@ -24,7 +24,7 @@ def searchBlood(request):
         ctt = request.GET.get('searchResult',False)
         if ctt:
             #only search by blood id or blood type in database
-            now=datetime.date.today()
+            now=dt.date.today()
             match = Blood.objects.filter(Q(id__icontains=ctt)|
                                          Q(bloodtype__icontains=ctt)
                                         )
@@ -38,19 +38,24 @@ def searchBlood(request):
     else:
         return render(request, 'bloodprofile/homepage.html')
 
-@login_required
+#@login_required
 def bookBlood(request, id):
     # get beach id
-    blood = Blood.objects.get(id = id)
+    blood = Blood.objects.get(id=id)
+    print(id+"hello")
+    print(blood)
     if Book.objects.filter(blood=blood, userBooked= request.user.username).exists():
         messages.success(request, '*You have already Booked the Blood. Dont book it again unless you delete the old one.')
-        return redirect()
+        return HttpResponseRedirect("/")
     form = BookForm(request.POST)
     if form.is_valid():
         #ratings = request.form['ratings']
         volume = form.cleaned_data['volume']
+        address=form.cleaned_data['bookingaddress']
         user_name = request.user.username
+
         booking = Book()
+        booking.bookingaddress = address
         booking.volume=volume
         booking.blood = blood
         booking.bookDate = datetime.now(timezone.utc).astimezone()
@@ -58,7 +63,7 @@ def bookBlood(request, id):
         booking.save()
         return redirect('bloodprofile/homepage.html')
 
-    return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form': form})
+    return render(request, 'bloodprofile/booking.html', {'blood':blood,'form':form})
 
 def makeResveration(request):
     print (request)

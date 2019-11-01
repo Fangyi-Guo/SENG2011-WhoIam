@@ -12,9 +12,6 @@ class Blood(models.Model):
     disposeddate = models.DateField(("blood disposed date"), auto_now=False, auto_now_add=False, null=True)#when was taken
     isTested = models.BooleanField()
 
-    def __str__(self):
-        return str(self.bloodid)
-
 class Reservation(models.Model):
     #rsvId = models.IntegerField()
     bloodType = models.CharField(max_length=50)
