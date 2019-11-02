@@ -139,13 +139,10 @@
             </div>
             
             <div class="row">
-
                 {% for result in results %}
+                {% if result.isBooked != True %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
-                        <span class="card-service__icon">
-                            <i class="flaticon-brain"></i>
-                        </span>
                         <h3 class="card-service__title">Type: {{ result.bloodtype }}</h3>
                         <p class="card-service__subtitle">Donor: {{ result.donor }}</p>
                         <p class="card-service__subtitle">Tookdate: {{ result.takendate }}</p>
@@ -155,6 +152,7 @@
                     </div>   
                 </div>
                 </div>
+                {% endif %}
                 {% endfor%}
                 <!-- The Modal -->
                 <div id="myModal" class="modal">

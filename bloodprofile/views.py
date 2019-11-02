@@ -34,7 +34,6 @@ def searchBlood(request):
                 match = Blood.objects.filter(expdate__gte=ctt)
             else:
                 match = Blood.objects.filter(Q(id__icontains=ctt)|Q(bloodtype__icontains=ctt)|Q(volume__gte=ctt))
-            
             if match:
                 return render(request, 'bloodprofile/homepage.html', {'results':match})
             else:
@@ -62,11 +61,11 @@ def bookBlood(request, id):
         booking = Book()
         booking.bookingaddress = address
         booking.blood = blood
+        blood.isBooked = True
         booking.bookDate = datetime.now(timezone.utc).astimezone()
         booking.userBooked = user_name
-        amount = booking.reduce_amount(volume)
-        blood.update(volume=amount)
         booking.save()
+        blood.save()
         return redirect('bloodprofile/homepage.html')
 
     return render(request, 'bloodprofile/booking.html', {'blood':blood,'form':form})

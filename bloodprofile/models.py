@@ -9,9 +9,8 @@ class Blood(models.Model):
     takendate = models.DateField(("blood taken date"), auto_now=False, auto_now_add=False)
     expdate = models.DateField(("blood expire date"), auto_now=False, auto_now_add=False)#whne to expire
     donor = models.CharField(max_length=50)
-    disposeddate = models.DateField(("blood disposed date"), auto_now=False, auto_now_add=False, null=True)#when was taken
-
-    isTested = models.BooleanField()
+    isBooked = models.BooleanField() 
+    isTested = models.BooleanField(default=False)
 
 class Reservation(models.Model):
     #rsvId = models.IntegerField()
