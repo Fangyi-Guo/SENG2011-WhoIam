@@ -77,7 +77,9 @@ def bookBlood(request, id):
 
     return render(request, 'bloodprofile/booking.html', {'blood':blood,'form':form})
 
+@login_required
 def makeResveration(request):
+    user_name = request.user.username
     # if this is a POST request we need to process the form data
     form = ReserveForm(request.POST)
     if request.method == 'POST':
@@ -89,7 +91,8 @@ def makeResveration(request):
             res.rsvVolume = form.cleaned_data['rsvVolume']
             res.address = form.cleaned_data['address']
             res.rsvDate = form.cleaned_data['rsvDate']
-            #res.userReserved = request.user
+            res.userReserved = user_name
+            print
             res.save()
             return render(request, 'bloodprofile/Reservation.html', {'success':"success"})
 

@@ -36,6 +36,13 @@
       padding: 10px;
       height: 300px; /* Should be removed. Only for demonstration */
     }
+    #rcorners1 {
+      border-radius: 25px;
+      background:  lightblue;
+      padding: 20px;
+      width: 200px;
+      height: 150px;
+    }
     </style>
   </head>
 
@@ -128,11 +135,11 @@
                 <h2 style="font-weight:bold">Booked blood</h2></br>
                 {% if book_list %}
                   {% for book in book_list %}
-                  <box id = "grad1"> 
+                  <div id = "grad1" class = "rcorners1"> 
                   <b>ID: {{ book.blood.id }} Type:{{book.blood.bloodtype}}</b>
                   <br>Booked Volume: {{ book.volume }}<br>
                          <i>Booked in {{ book.bookDate }} </i><br>
-                  </box>
+                  </div>
                   <br>
                   {% endfor %}
                 {% else %}
