@@ -61,7 +61,6 @@ def bookBlood(request, id):
 
         booking = Book()
         booking.bookingaddress = address
-        booking.volume=volume
         booking.blood = blood
         booking.bookDate = datetime.now(timezone.utc).astimezone()
         booking.userBooked = user_name
