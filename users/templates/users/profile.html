@@ -113,7 +113,7 @@
                         <h4>
                           <a style="color:white;"> 
                           {{ reservation.bloodType }}</a> &nbsp 
-                          <a href="{% url 'delete_reservation' review.id %}" role="button" class="btn btn-info">Delete my reservation</a>
+                          <a href="{% url 'delete_reservation' reservation.id %}" role="button" class="btn btn-info">Delete my reservation</a>
                         </h4>
                           <br>Reservation Volume: {{ reservation.rsvVolume }}<br>
                          <span ><i>Reserved in {{ reservation.rsvDate }} </i></span><br>

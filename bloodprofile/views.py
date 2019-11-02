@@ -106,3 +106,16 @@ def index(request):
 
         
     return render(request, 'Articles/index.html', context)
+
+
+def delete_reservation(request, id):#review id
+    re = Reservation.objects.filter(id=id)
+    re.delete()
+    user = request.user
+    port = request.META['SERVER_PORT']
+    rsvlist = Reservation.objects.filter(userReserved=user.username).order_by('-pub_date')
+    context = {
+        'rsvlist':rsvlist,
+        'port':port
+    }
+    return render(request, 'users/profile.html',context )
