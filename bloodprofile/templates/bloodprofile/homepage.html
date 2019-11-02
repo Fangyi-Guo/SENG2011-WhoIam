@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <title>Vampire</title>
+    <!-- Bootstrap CSS -->
+    <!-- main css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+     body {
+		background-image: url("https://cdn.pixabay.com/photo/2017/01/10/07/11/blood-1968458_1280.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        padding: 145px;
+        }
+
+    .reservation {
+        background-color:rgb(200,255,255);
+        max-width:1000px
+    }
+    #rcorners {
+      border-radius: 15px 50px 30px;
+      background: lightblue;
+      padding: 20px; 
+      width: 200px;
+      height: 150px; 
+    }
+    .collapsible {
+        background-color:#CCD1D1;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
+    </style>
+</head>
+<body>
+
+    <!--================Header Menu Area =================-->
+    <header class="header_area">
+        <div class="top_menu row m0">
+            <div class="container">
+                <div class="float-left">
+                    <a class="dn_btn" href="mailto:medical@example.com"><i class="ti-email"></i>Vampire@example.com</a>
+                </div>
+            </div>  
+        </div>  
+        <!--<div class="main_menu">-->
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href={% url 'blood-home' %}>Home</a></li> 
+                            <!-- Links -->
+                            <ul class="navbar-nav">
+                              {% if user.is_authenticated %}
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                              </li>
+                              
+                              {% else %}
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                              </li>
+                              {% endif %}
+                        
+                            </ul>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'reservation' %}">Reservation</a></li>    
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        <!--</div>-->
+    </header>
+    <!--================Header Menu Area =================-->
+
+
+    <!--================Home Banner Area =================-->
+    <section class="banner_area">
+      <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+          <div
+            class="banner_content d-md-flex justify-content-between align-items-center"
+          >
+            <div class="mb-3 mb-md-0">
+              <h2>Vampire</h2>
+              <p>we organise mobile blood service, deliver blood to registered organisations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+
+     
+<!--================ Service section start =================-->  
+    {% if results %}
+    <div class="service-area area-padding-top">
+        <div class="container">
+            <div class="area-heading row">
+                <div class="col-md-5 col-xl-4">
+                    <h3>Matching items</h3>
+                </div>
+            </div>
+            
+            <div class="row">
+
+                {% for result in results %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
+                        <span class="card-service__icon">
+                            <i class="flaticon-brain"></i>
+                        </span>
+                        <h3 class="card-service__title">Type: {{ result.bloodtype }}</h3>
+                        <p class="card-service__subtitle">Donor: {{ result.donor }}</p>
+                        <p class="card-service__subtitle">Tookdate: {{ result.takendate }}</p>
+                        <p class="card-service__subtitle">Volume {{ result.volume }} ml</p>
+                        <a class="btn btn-primary"
+                        href="{% url 'blood-booking' result.id %}">Book now!</a>
+                    </div>   
+                </div>
+                </div>
+                {% endfor%}
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                </div>
+            </div>
+        </div>
+    </div>  
+    {% elif error %}
+    <div class="area-heading row">
+        <div class="col-md-5 col-xl-4">
+            <h3> Sorry no matching result </h3>
+        </div>
+    </div>
+    {% endif %}  
+    <!--================ Service section end =================-->    
+
+        <div class="appointment-inner">
+            <div class="row">
+                <div class="col-sm-12 col-lg-5 offset-lg-1">
+                    <h3>Have Some Questions?</h3>
+                    <div class="accordion" id="accordionExample">
+
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="collapsible"type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How can i request for blood?
+                                    </button>
+
+                                </h5>
+                            </div>
+
+                            <div id="0"  class="content" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div>
+                                    <p>You can book a single blood item or request for a certain amount of blood by blood type </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        How can i receive blood?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="1" class="content" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    We will deliver blood items by a batmobile on the day you choose. 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">    
+                                        Is it safe to use your products?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="2" class="content" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    All the blood items we have were tested by authoritative al pathology or a hospital, and we remove bloods from our inventory by expire date periodly.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                                <h5 class="mb-0">
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        How can i search for blood items?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id= "3" class="content" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    You can search for a blood item by blood type, expire date and donor.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingFive">
+                                <h5 class="mb-0">
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="4" class="content" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    earth is flat 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="reservation">
+                    <div class="appointment-form">
+                        <h4>Seach for Blood items</h4>
+                        <p>Search blood by id, type, expire date(YYYY-MM-DD)</p>
+                            <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
+                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = 'search blood'" onblur="this.placeholder = 'Your Email Address'" required="" />
+                                    <button class="click-btn btn btn-default" name = "button" type = "submit">
+                                        <i class="ti-arrow-right">Search</i>
+                                    </button>
+                                    <div class="info"></div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    coll[0].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("0");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })   
+    coll[1].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("1");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })  
+    coll[2].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("2");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })  
+    var coll = document.getElementsByClassName("collapsible");
+    coll[3].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("3");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })  
+
+    coll[4].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = document.getElementById("4");
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+    })       
+</script>
+</body>
+</html>

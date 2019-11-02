@@ -1,0 +1,19 @@
+#wrapper {
+	backgroud-colour: lightblue;
+    width: 500px;
+    border: 1px solid black;
+    overflow: hidden; /* add this to contain floated children */
+}
+#forecast {
+    width: 300px;
+    float:left; /* add this */
+    border: 1px solid red;
+}
+#current {
+    border: 1px solid green;
+    float: left; /* add this */
+}
+
+#safety {
+	margin-top: 300px;
+}
