@@ -45,7 +45,7 @@ def searchBlood(request):
     else:
         return render(request, 'bloodprofile/homepage.html')
 
-#@login_required
+@login_required
 def bookBlood(request, id):
     # get beach id
     blood = Blood.objects.get(id=id)
