@@ -52,15 +52,10 @@ def bookBlood(request, id):
     #print(id+"hello")
     #print(blood)
     if Book.objects.filter(blood=blood, userBooked= request.user.username).exists():
-        messages.success(request, '*You have already Booked the Blood. Dont book it again unless you delete the old one.')
         return HttpResponseRedirect("/")
     form = BookForm(request.POST)
     if form.is_valid():
         #ratings = request.form['ratings']
-        volume = form.cleaned_data['volume']
-        if(volume > blood.volume):
-             messages.success(request, '*this blood does not have so much amount of blood.')
-             return render(request, 'bloodprofile/booking.html', {'blood':blood, 'form':form})
         address=form.cleaned_data['bookingaddress']
         user_name = request.user.username
 
@@ -92,7 +87,6 @@ def makeResveration(request):
             res.address = form.cleaned_data['address']
             res.rsvDate = form.cleaned_data['rsvDate']
             res.userReserved = user_name
-            print
             res.save()
             return render(request, 'bloodprofile/Reservation.html', {'success':"success"})
 
@@ -109,3 +103,18 @@ def index(request):
 
         
     return render(request, 'Articles/index.html', context)
+
+
+def delete_reservation(request, id):#reservation id
+    re = Reservation.objects.filter(id=id)
+    bk = Book.objects.filter(userBooked=request.user.username)
+    re.delete()
+    user = request.user
+    port = request.META['SERVER_PORT']
+    rsvlist = Reservation.objects.filter(userReserved=user.username).order_by('-rsvDate')
+    context = {
+        'reservation_list':rsvlist,
+        'port':port,
+        'book_list': bk
+    }
+    return render(request, 'users/profile.html',context)

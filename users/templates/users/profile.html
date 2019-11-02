@@ -24,24 +24,17 @@
       text-shadow: 2px 2px 8px rgb(120, 218, 244);
     }
     #rcorners {
-      border-radius: 5px 50px 50px 5px;
-      background: lightblue;
-      padding: 8px; 
-      width: 600px;
-      height: 40px; 
-    }
+      border-radius: 15px 50px 30px;
+      background: #73AD21;
+      padding: 20px; 
+      width: 200px;
+      height: 150px; 
+  }
     .column {
       float: left;
       width: 50%;
       padding: 10px;
       height: 300px; /* Should be removed. Only for demonstration */
-    }
-    #rcorners1 {
-      border-radius: 25px;
-      background:  lightblue;
-      padding: 20px;
-      width: 200px;
-      height: 150px;
     }
     </style>
   </head>
@@ -120,7 +113,7 @@
                         <h4>
                           <a style="color:white;"> 
                           {{ reservation.bloodType }}</a> &nbsp 
-                          <a href="{% url 'delete_reservation' review.id %}" role="button" class="btn btn-info">Delete my reservation</a>
+                          <a href="{% url 'delete-reservation' reservation.id %}" role="button" class="btn btn-info">Delete my reservation</a>
                         </h4>
                           <br>Reservation Volume: {{ reservation.rsvVolume }}<br>
                          <span ><i>Reserved in {{ reservation.rsvDate }} </i></span><br>
@@ -135,7 +128,7 @@
                 <h2 style="font-weight:bold">Booked blood</h2></br>
                 {% if book_list %}
                   {% for book in book_list %}
-                  <div id = "grad1" class = "rcorners1"> 
+                  <div id = "grad1" class = "rcorners"> 
                   <b>ID: {{ book.blood.id }} Type:{{book.blood.bloodtype}}</b>
                   <br>Booked Volume: {{ book.volume }}<br>
                          <i>Booked in {{ book.bookDate }} </i><br>

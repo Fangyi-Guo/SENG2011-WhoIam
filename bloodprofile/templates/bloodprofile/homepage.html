@@ -23,6 +23,13 @@
         background-color:rgb(200,255,255);
         max-width:1000px
     }
+    #rcorners {
+      border-radius: 15px 50px 30px;
+      background: lightblue;
+      padding: 20px; 
+      width: 200px;
+      height: 150px; 
+    }
     .collapsible {
         background-color:#CCD1D1;
         color: white;
@@ -127,8 +134,7 @@
         <div class="container">
             <div class="area-heading row">
                 <div class="col-md-5 col-xl-4">
-                    <h3>Matching<br>
-                    items</h3>
+                    <h3>Matching items</h3>
                 </div>
             </div>
             
@@ -140,20 +146,13 @@
                         <span class="card-service__icon">
                             <i class="flaticon-brain"></i>
                         </span>
-                        <h3 class="card-service__title">{{ result.bloodtype }}</h3>
-                        <p class="card-service__subtitle">{{ result.donor }}</p>
-                        <p class="card-service__subtitle">{{ result.takendate }}</p>
-                        <a class="muti-text" 
+                        <h3 class="card-service__title">Type: {{ result.bloodtype }}</h3>
+                        <p class="card-service__subtitle">Donor: {{ result.donor }}</p>
+                        <p class="card-service__subtitle">Tookdate: {{ result.takendate }}</p>
+                        <p class="card-service__subtitle">Volume {{ result.volume }} ml</p>
+                        <a class="btn btn-primary"
                         href="{% url 'blood-booking' result.id %}">Book now!</a>
-                         {% if messages %}
-                                {% for message in messages %}
-                                <div>
-                                {{ message }}
-                                </div>
-                            {% endfor%}
-                        {% endif %}
-                    </div>
-                    
+                    </div>   
                 </div>
                 </div>
                 {% endfor%}
@@ -244,13 +243,13 @@
                             <div class="card-header" id="headingFive">
                                 <h5 class="mb-0">
                                     <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        what i learned from comp3331 
+                                        
                                     </button>
                                 </h5>
                             </div>
                             <div id="4" class="content" aria-labelledby="headingFive" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    memes 
+                                    earth is flat 
                                 </div>
                             </div>
                         </div>

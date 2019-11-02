@@ -17,8 +17,7 @@ class ReserveForm(ModelForm):
 class BookForm(ModelForm):
     class Meta:
         model = Book
-        fields = ['volume', 'bookingaddress']
+        fields = ['bookingaddress']
         widget = {
-            'volume': NumberInput(attrs={'title': 'booked volume'}),
             'bookingaddress': TextInput(attrs={'size': 100, 'title': 'required address'})
         }

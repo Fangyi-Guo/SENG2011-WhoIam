@@ -88,15 +88,6 @@
         {% csrf_token %}
         
           <b style="font-style:italic; font-size:25px">User: {{ user.username }}</b></p>
-          <br><a style="font-weight:bold">Volume: </a>{{ form.volume }}<br>
-  			  <font color=red size=2px>* this field is required</font> </p>
-          {% if messages %}
-                {% for message in messages %}
-                <div>
-                  {{ message }}
-                </div>
-              {% endfor%}
-          {% endif %}
 
           <br><a style="font-weight:bold">Address to send: </a>{{ form.bookingaddress }}<br>
   			  <font color=red size=2px>* this field is required</font> </p>

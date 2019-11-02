@@ -30,6 +30,6 @@ urlpatterns = [
     url(r'^logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     
     url(r'/reservation/', blood_view.makeResveration, name='reservation'),
-    url(r'^(?P<id>\d+)/blood_booking/', blood_view.bookBlood, name='blood-booking')
-    #url(r'beachProfile/', blood_view.bloodProfile, name='beachProfile'),
+    url(r'^(?P<id>\d+)/blood_booking/', blood_view.bookBlood, name='blood-booking'),
+    url(r'^(?P<id>\d+)/delete_reservation/', blood_view.delete_reservation, name='delete-reservation')
 ]

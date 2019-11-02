@@ -25,9 +25,4 @@ class Book(models.Model):
     bookingaddress = models.CharField(max_length=100, null=True)
     bookDate = models.DateTimeField("booking date")
     blood = models.ForeignKey(Blood, on_delete=models.CASCADE)
-    volume = models.FloatField()
     userBooked = models.CharField(max_length=50,null=True)
-
-    def reduce_amount(self,amount):
-        self.blood.volume = self.blood.volume-amount
-        return self.blood.volume
