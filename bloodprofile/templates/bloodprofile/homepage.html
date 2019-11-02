@@ -145,7 +145,13 @@
                         <p class="card-service__subtitle">{{ result.takendate }}</p>
                         <a class="muti-text" 
                         href="{% url 'blood-booking' result.id %}">Book now!</a>
-                        
+                         {% if messages %}
+                                {% for message in messages %}
+                                <div>
+                                {{ message }}
+                                </div>
+                            {% endfor%}
+                        {% endif %}
                     </div>
                     
                 </div>
