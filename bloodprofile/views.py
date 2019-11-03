@@ -33,7 +33,10 @@ def searchBlood(request):
             if(isValidDate):
                 match = Blood.objects.filter(expdate__gte=ctt)
             else:
-                match = Blood.objects.filter(Q(id__icontains=ctt)|Q(bloodtype__icontains=ctt)|Q(volume__gte=ctt))
+                if(ctt.isdigit()):
+                    match = Blood.objects.filter(Q(id__icontains=ctt)|Q(volume__gte=ctt))
+                else:
+                    match = Blood.objects.filter(bloodtype=ctt)
             if match:
                 return render(request, 'bloodprofile/homepage.html', {'results':match})
             else:
