@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timezone
 from django.db.models import Q
-from .forms import BookForm, ReserveForm
+from .forms import BookForm, ReserveForm, DonateForm
 import datetime as dt
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
@@ -208,3 +208,34 @@ def delete_reservation(request, id):#reservation id
         'book_list': bk
     }
     return render(request, 'users/profile.html',context)
+
+@login_required
+def donate_blood(request):
+    user_name = request.user.username
+    print(request)
+    # if this is a POST request we need to process the form data
+    form = DonateForm(request.POST)
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        # check whether it's valid:
+        if form.is_valid():
+            blood = Blood()
+            blood.bloodtype = str(form.cleaned_data['bloodtype'])
+            blood.volume = form.cleaned_data['volume']
+            blood.takendate = dt.date.today()
+            blood.expdate = form.cleaned_data['expdate']
+            blood.donor = user_name
+            blood.isBooked = False
+            
+            if 'isTested' in request.POST:
+                blood.isTested=True
+                blood.save()
+                print("saved")
+                return redirect('blood-home')
+            else:
+                blood.isTested = False
+                print("not tested")
+                messages.success(request, '*This blood is not tested so it cannot be collected')
+                return redirect('donation')
+            
+    return render(request, 'bloodprofile/Donation.html', {'form': form},RequestContext(request))
