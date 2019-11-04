@@ -145,7 +145,7 @@
                     <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
                         <h3 class="card-service__title">Type: {{ result.bloodtype }}</h3>
                         <p class="card-service__subtitle">Donor: {{ result.donor }}</p>
-                        <p class="card-service__subtitle">Tookdate: {{ result.takendate }}</p>
+                        <p class="card-service__subtitle">expire date: {{ result.expdate }}</p>
                         <p class="card-service__subtitle">Volume {{ result.volume }} ml</p>
                         <a class="btn btn-primary"
                         href="{% url 'blood-booking' result.id %}">Book now!</a>
@@ -232,7 +232,7 @@
                             </div>
                             <div id= "3" class="content" aria-labelledby="headingFour" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    You can search for a blood item by blood type, expire date and donor.
+                                    You can search for a blood item by blood type, volume and donor.
                                 </div>
                             </div>
                         </div>
@@ -257,9 +257,9 @@
                 <div class="reservation">
                     <div class="appointment-form">
                         <h4>Seach for Blood items</h4>
-                        <p>Search blood by id, type, expire date(YYYY-MM-DD)</p>
+                        <p>Search blood by type, volume and donor</p>
                             <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
-                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = 'search blood'" onblur="this.placeholder = 'Your Email Address'" required="" />
+                                    <input class="form-control" name="searchResult" onfocus="this.placeholder = 'search blood'"  />
                                     <button class="click-btn btn btn-default" name = "button" type = "submit">
                                         <i class="ti-arrow-right">Search</i>
                                     </button>

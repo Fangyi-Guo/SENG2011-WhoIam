@@ -13,6 +13,7 @@ from .forms import BookForm, ReserveForm
 import datetime as dt
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
+from array import *
 
 def home(request):
     return render(request, "bloodprofile/homepage.html")
@@ -23,29 +24,117 @@ def searchBlood(request):
     if request.method == 'GET':
         ctt = request.GET.get('searchResult',False)
         if ctt:
-            #only search by blood id or blood type or volume or expire date in database
-            #YYYY-MM-DD
-            now=dt.date.today()
-            isValidDate = False
-            if('-' in ctt):
-                isValidDate = True
-            
-            if(isValidDate):
-                match = Blood.objects.filter(expdate__gte=ctt)
-            else:
-                if(ctt.isdigit()):
-                    match = Blood.objects.filter(Q(id__icontains=ctt)|Q(volume__gte=ctt))
-                else:
-                    match = Blood.objects.filter(bloodtype=ctt)
-            if match:
-                return render(request, 'bloodprofile/homepage.html', {'results':match})
-            else:
-                return render(request, 'bloodprofile/homepage.html',{'error': "no matching result"})
+            # sort list by Id
+            match = searchlist(ctt)
+            #get item in pa
+            print(match)
+            qs = Blood.objects.filter(id__in=[3,1,8])
+            qs_sorted = list()
+            for id in match:
+                qs_sorted.append(Blood.objects.filter(Q(id=id))[:1].get())
+            print(qs_sorted)
+            return render(request, 'bloodprofile/homepage.html', {'results':qs_sorted})      
+    return render(request, 'bloodprofile/homepage.html')
+
+
+# make search by volumn donor and type you can add more in if statement 
+def searchlist(ctt):
+    match = list()
+    for blood in Blood.objects.all():
+        if checkMatch(blood,ctt):
+            match.append(blood.id)
+#if only one item no need to sort
+    if match:
+        if (len(match) > 1): 
+            match = sortByType(match,ctt)
+    return match
+
+#check if the blood item contain ctt add more if you want 
+def checkMatch(blood,ctt):
+    if (blood.bloodtype == ctt):
+        return True
+    elif (ctt.isdigit()):
+        if blood.volume > int(ctt):
+            return True
         else:
-            #output all objects to the page
-            return render(request, 'bloodprofile/homepage.html', {'results': Blood.objects.all()})
+            return False
+    elif (blood.donor == ctt):
+        return True
     else:
-        return render(request, 'bloodprofile/homepage.html')
+        return False
+
+#simple sort by type 
+def sortByType(match,ctt):
+    Alist = list()
+    Blist = list()
+    ABlist = list()
+    Olist = list()
+    
+    for id in match:
+        blood = Blood.objects.filter(Q(id=id))[:1].get()
+        if (blood.bloodtype == 'A'):
+            Alist.append(id)
+        elif (blood.bloodtype == 'B'):
+            Blist.append(id)
+        elif (blood.bloodtype == 'AB'):
+            ABlist.append(id)
+        elif (blood.bloodtype == 'O'):
+            Olist.append(id)
+
+    sortedA =sortByExpDate(Alist)
+    sortedB =sortByExpDate(Blist)
+    sortedAB =sortByExpDate(ABlist)
+    sortedO =sortByExpDate(Olist)
+
+    sortedA.extend(sortedB)
+    sortedA.extend(sortedAB)
+    sortedA.extend(sortedO)
+
+    return sortedA
+
+        
+        
+
+#bubble sort(google it) by ExpireDate no need to check mine it is complex
+def sortByExpDate(match):
+    sort = list()
+    if match:
+        array = create2D(match)
+        i = 0
+        while i < len(match):
+            j = 0
+            newlen = len(match) - i - 1
+            while j < newlen:
+                if (array[j][1] < array[j+1][1]): 
+                    array[j][0], array[j+1][0] = array[j+1][0], array[j][0]
+                    array[j][1], array[j+1][1] = array[j+1][1], array[j][1]
+                j+=1
+            i+=1
+#convert 2d array[0] back to list           
+        i = 0        
+        while i < len(match): 
+            sort.append(array[i][0])
+            i+=1
+
+    return sort
+
+#we need this since we compare expdate but sort id 
+#and the inner forloop should loop through the array contain both id and expdate
+#we also need a index number to sort
+def create2D (match):
+    array = [[0 for x in range(0)]for y in range(len(match))]
+    newMatch = Blood.objects.filter(Q(id__in=match))
+    i = 0
+
+    while i < len(match):
+        id = match[i]
+        blood = Blood.objects.filter(Q(id=id))[:1].get()
+        array[i].append(blood.id)
+        array[i].append(blood.expdate)
+        i=i+1
+    return array
+
+
 
 @login_required
 def bookBlood(request, id):
