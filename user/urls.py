@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^profile/', user_views.profile, name='profile'),
     url(r'^login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     url(r'^logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    
+    url(r'/donation/', blood_view.donate_blood, name='donation'),
     url(r'/reservation/', blood_view.makeResveration, name='reservation'),
     url(r'^(?P<id>\d+)/blood_booking/', blood_view.bookBlood, name='blood-booking'),
     url(r'^(?P<id>\d+)/delete_reservation/', blood_view.delete_reservation, name='delete-reservation')
