@@ -218,19 +218,18 @@ def donate_blood(request):
             blood = Blood()
             blood.bloodtype = str(form.cleaned_data['bloodtype'])
             blood.volume = form.cleaned_data['volume']
-            blood.takendate = form.cleaned_data['obtdate']
+            blood.takendate = form.cleaned_data['takendate']
             blood.expdate = blood.takendate + dt.timedelta(days=35)
             blood.donor = user_name
             blood.isBooked = False
+            print("inside here hahahahahahhah!\n")
             
-            if 'isTested' in request.POST:
+            if request.POST.get('isTested', True):
                 blood.isTested=True
-                blood.save()
-                print("saved")
             else:
                 blood.isTested = False
-                print("not tested")
-                blood.save()
+                print("\nnot tested\n")
+            blood.save()
             return render(request, 'bloodprofile/Donation.html', {'success':"success"})
 
     return render(request, 'bloodprofile/Donation.html', {'form': form},RequestContext(request))

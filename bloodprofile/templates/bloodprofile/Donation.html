@@ -96,19 +96,19 @@
         </div>
         <div class="form-group">
             <label>Obtain date</label>
-            <input type="date" placeholder="mm/dd/yyyy" name = "obtdate" onfocus="this.placeholder = ''" onblur="this.placeholder = 'mm/dd/yyyy'" required> 
+            <input type="date" placeholder="mm/dd/yyyy" name = "takendate" onfocus="this.placeholder = ''" onblur="this.placeholder = 'mm/dd/yyyy'" required> 
         </div>
         <div class="form-group">
                 <label>IsTested</label>
-                <input type="checkbox" name = "isTested" onfocus="this.placeholder = ''" onblur="this.placeholder = ''"> 
+                <input type="checkbox" name = "isTested" value="testedBox" onblur="this.placeholder = ''"> 
         </div>
-        {% if success %}
-        <div class="form-group">
-            <h2>Donation being made!</h2>
-        </div>
-        {% endif %}
         <button class="btn btn-primary" type = "submit">Submit Blood Info</button>
       </form>
+        {% if success %}
+          <div class="form-group">
+            <h2>Donation being made!</h2>
+          </div>
+        {% endif %}
 
     </br>
     </div>

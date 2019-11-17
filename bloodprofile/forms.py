@@ -1,6 +1,6 @@
 from .models import Reservation, Book, Blood
 from django import forms
-from django.forms import ModelForm, NumberInput, TextInput, DateInput
+from django.forms import ModelForm, NumberInput, TextInput, DateInput, CheckboxInput
 from django import forms
 
 class ReserveForm(ModelForm):
@@ -22,13 +22,13 @@ class BookForm(ModelForm):
             'bookingaddress': TextInput(attrs={'size': 100, 'title': 'required address'})
         }
 
-class DonateForm(ModelForm):
+class DonateForm(ModelForm, forms.Form):
     class Meta:
         model = Blood
-        fields = ['bloodtype', 'volume', 'expdate', 'isTested']
+        fields = ['bloodtype', 'volume', 'takendate', 'isTested']
         widget = {
             'bloodtype': TextInput(attrs={'size': 10, 'title': 'your blood type'}),
             'volume': NumberInput(attrs={'title': 'the volume you donate'}),
-            'expdate': DateInput(attrs={'title': 'the expire date'}),
-            'isTested': TextInput(attrs={})
+            'takendate': DateInput(attrs={'title': 'the obtain date'}),
+            'isTested': CheckboxInput()
         }
