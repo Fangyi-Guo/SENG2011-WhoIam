@@ -227,11 +227,10 @@ def donate_blood(request):
                 blood.isTested=True
                 blood.save()
                 print("saved")
-                return redirect('blood-home')
             else:
                 blood.isTested = False
                 print("not tested")
                 blood.save()
-                return redirect('blood-home')
-            
+            return render(request, 'bloodprofile/Donation.html', {'success':"success"})
+
     return render(request, 'bloodprofile/Donation.html', {'form': form},RequestContext(request))

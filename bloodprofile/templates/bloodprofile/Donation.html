@@ -102,12 +102,10 @@
                 <label>IsTested</label>
                 <input type="checkbox" name = "isTested" onfocus="this.placeholder = ''" onblur="this.placeholder = ''"> 
         </div>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="success" align='center'>
-                <p>{{ message }}</p>
-                </div>
-            {% endfor%}
+        {% if success %}
+        <div class="form-group">
+            <h2>Donation being made!</h2>
+        </div>
         {% endif %}
         <button class="btn btn-primary" type = "submit">Submit Blood Info</button>
       </form>
