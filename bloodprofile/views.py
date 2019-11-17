@@ -19,7 +19,6 @@ def home(request):
     return render(request, "bloodprofile/homepage.html")
 
 
-
 def searchBlood(request):
     if request.method == 'GET':
         ctt = request.GET.get('searchResult',False)
@@ -28,7 +27,6 @@ def searchBlood(request):
             match = searchlist(ctt)
             #get item in pa
             print(match)
-            qs = Blood.objects.filter(id__in=[3,1,8])
             qs_sorted = list()
             for id in match:
                 qs_sorted.append(Blood.objects.filter(Q(id=id))[:1].get())
@@ -91,11 +89,9 @@ def sortByType(match,ctt):
     sortedA.extend(sortedO)
 
     return sortedA
+       
 
-        
-        
-
-#bubble sort(google it) by ExpireDate no need to check mine it is complex
+#bubble sort(google it) by ExpireDate 
 def sortByExpDate(match):
     sort = list()
     if match:

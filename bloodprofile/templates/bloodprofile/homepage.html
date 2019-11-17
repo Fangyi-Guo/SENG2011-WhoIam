@@ -143,6 +143,7 @@
             <div class="row">
                 {% for result in results %}
                 {% if result.isBooked != True %}
+                {% if result.id == True %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
                         <h3 class="card-service__title">Type: {{ result.bloodtype }}</h3>
@@ -154,6 +155,7 @@
                     </div>   
                 </div>
                 </div>
+                {% endif %}
                 {% endif %}
                 {% endfor%}
                 <!-- The Modal -->
@@ -260,7 +262,7 @@
                     <div class="appointment-form">
                         <h4>Seach for Blood items</h4>
                         <p>Search blood by type, volume and donor</p>
-                            <form target="_blank" action="{% url 'blood-search' %}", method="get" class="form-inline">
+                            <form action="{% url 'blood-search' %}", method="get" class="form-inline">
                                     <input class="form-control" name="searchResult" onfocus="this.placeholder = 'search blood'"  />
                                     <button class="click-btn btn btn-default" name = "button" type = "submit">
                                         <i class="ti-arrow-right">Search</i>
