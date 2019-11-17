@@ -143,7 +143,7 @@
             <div class="row">
                 {% for result in results %}
                 {% if result.isBooked != True %}
-                {% if result.id == True %}
+                {% if result.isTested == True %}
                 <div class="col-md-6 col-lg-4">
                     <div class="card-service text-center text-lg-left mb-4 mb-lg-0">
                         <h3 class="card-service__title">Type: {{ result.bloodtype }}</h3>
