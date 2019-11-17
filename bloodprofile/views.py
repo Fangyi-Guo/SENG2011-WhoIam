@@ -224,11 +224,7 @@ def donate_blood(request):
             blood.isBooked = False
             print("inside here hahahahahahhah!\n")
             
-            if request.POST.get('isTested', True):
-                blood.isTested=True
-            else:
-                blood.isTested = False
-                print("\nnot tested\n")
+            blood.isTested = request.POST.get('isTested', '') == 'on'
             blood.save()
             return render(request, 'bloodprofile/Donation.html', {'success':"success"})
 
