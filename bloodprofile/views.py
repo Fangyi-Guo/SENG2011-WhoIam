@@ -133,8 +133,8 @@ def donate_blood(request):
             blood = Blood()
             blood.bloodtype = str(form.cleaned_data['bloodtype'])
             blood.volume = form.cleaned_data['volume']
-            blood.takendate = dt.date.today()
-            blood.expdate = form.cleaned_data['expdate']
+            blood.takendate = form.cleaned_data['obtdate']
+            blood.expdate = blood.takendate + dt.timedelta(days=35)
             blood.donor = user_name
             blood.isBooked = False
             
@@ -146,7 +146,7 @@ def donate_blood(request):
             else:
                 blood.isTested = False
                 print("not tested")
-                messages.success(request, '*This blood is not tested so it cannot be collected')
-                return redirect('donation')
+                blood.save()
+                return redirect('blood-home')
             
     return render(request, 'bloodprofile/Donation.html', {'form': form},RequestContext(request))
