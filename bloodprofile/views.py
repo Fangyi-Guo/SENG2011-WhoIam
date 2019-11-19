@@ -58,9 +58,9 @@ def searchlist(ctt):
     if match:
         #if only one item no need to sort
         if (len(match) > 1): 
-            #match = sortByVolumn(match)
+            match = sortByVolumn(match)
             #match = sortByType(match)
-            match = sortByExpDate(match)
+            #match = sortByExpDate(match)
     return match
 
 #use list to sort by type 
@@ -107,18 +107,10 @@ def sortByExpDate(match):
 def sortByVolumn(match): 
     i = 1
     while i < len(match):
-        if match[i].volume < match[0].volume:
-            match[0],match[i]=match[i],match[0]
-        i+=1
-
-    i = 1
-    while i < len(match):
         j = i
-        v = match[i]
-        while v.volume < match[j-1].volume:
-            match[j] = match[j-1]
+        while match[j].volume <= match[j-1].volume and j > 0:
+            match[j],match[j-1] = match[j-1],match[j]
             j = j -1
-        match[j] = v
         i += 1
     #print(match)
     return match
