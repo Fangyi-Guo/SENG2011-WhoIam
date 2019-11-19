@@ -58,35 +58,30 @@ def searchlist(ctt):
     if match:
         #if only one item no need to sort
         if (len(match) > 1): 
-            match = sortByVolumn(match)
-            #match = sortByType(match)
+            #match = sortByVolumn(match)
+            match = sortByType(match)
             #match = sortByExpDate(match)
     return match
 
 #use list to sort by type 
 def sortByType(match):
 
-    Alist = list()
-    Blist = list()
-    ABlist = list()
-    Olist = list()
-    
-    for blood in match:
-        if (blood.bloodtype == 'A'):
-            Alist.append(blood)
-        elif (blood.bloodtype == 'B'):
-            Blist.append(blood)
-        elif (blood.bloodtype == 'AB'):
-            ABlist.append(blood)
-        elif (blood.bloodtype == 'O'):
-            Olist.append(blood)
+    i = len(match)
+    m = 0
+    while (i > 0): 
+        m = MaxIdxTo(match, i - 1)
+        match[m], match[i - 1] = match[i - 1], match[m]
+        i = i - 1
+    return match
 
-    Alist.extend(Blist)
-    Alist.extend(ABlist)
-    Alist.extend(Olist)
-
-    return Alist
-       
+def MaxIdxTo(match,j): 
+    imax = 0
+    i = 0
+    while (i <= j):
+        if (match[i].bloodtype > match[imax].bloodtype): 
+           imax = i
+        i = i + 1
+    return imax
 
 #bubble sort by Expire date 
 def sortByExpDate(match):
