@@ -52,6 +52,8 @@ def checkMatch(blood,ctt):
             return False
     elif (blood.donor == ctt):
         return True
+    elif (blood.bloodtype == ctt.upper()):
+        return True 
     else:
         return False 
 
