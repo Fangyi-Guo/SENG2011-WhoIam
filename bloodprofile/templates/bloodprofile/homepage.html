@@ -264,10 +264,15 @@
                         <p>Search blood by type, volume and donor</p>
                             <form action="{% url 'blood-search' %}", method="get" class="form-inline">
                                     <input class="form-control" name="searchResult" onfocus="this.placeholder = 'search blood'"  />
-                                    <button class="click-btn btn btn-default" name = "button" type = "submit">
+                                    <button class="click-btn btn btn-info" name = "button" type = "submit">
                                         <i class="ti-arrow-right">Search</i>
                                     </button>
-                                    <div class="info"></div>
+                                    <br>
+                                    <div id ="checkboxes" class="column"style="margin-bottom:20px;margin-left:0px;background:rgba(0,0,0,0)">
+                                        <input type="checkbox" id="type" class="custom-control custom-checkbox"name="sortBy"value="sortbytype"style="background:black">Sort by type<br>
+                                        <input type="checkbox" id="expdate" class="custom-control custom-checkbox"name="sortBy" value="sortbyexpdate"style="background:black">Sort by expire date<br>
+                                        <input type="checkbox" id="volume" class="custom-control custom-checkbox"name="sortBy"value="sortbyvolumn" style="background:black">Sort by volumn<br>
+                                    </div>
                             </form>
                     </div>
                 </div>

@@ -15,39 +15,33 @@ from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from array import *
 
+#home page 
 def home(request):
     return render(request, "bloodprofile/homepage.html")
 
-
+#searching method 
 def searchBlood(request):
     if request.method == 'GET':
+        #ctt user input custom-control
         ctt = request.GET.get('searchResult',False)
         if ctt:
-            # sort list by Id
             match = searchlist(ctt)
-            #get item in pa
-            print(match)
-            qs_sorted = list()
-            for id in match:
-                qs_sorted.append(Blood.objects.filter(Q(id=id))[:1].get())
-            print(qs_sorted)
-            return render(request, 'bloodprofile/homepage.html', {'results':qs_sorted})      
+            sortBy = request.GET.get("sortBy", None)
+            if sortBy in ["sortbytype", "sortbyexpdate", "sortbyvolumn"]:
+                if sortBy == "sortbytype":
+                    res = sortByType(match)
+                elif sortBy == "sortbyexpdate":
+                    res = sortByExpDate(match)
+                elif sortBy == "sortbyvolumn":
+                    res = sortByVolumn(match)
+            else:
+                res = match
+            return render(request, 'bloodprofile/homepage.html', {'results':res})
     return render(request, 'bloodprofile/homepage.html')
 
 
-# make search by volumn donor and type you can add more in if statement 
-def searchlist(ctt):
-    match = list()
-    for blood in Blood.objects.all():
-        if checkMatch(blood,ctt):
-            match.append(blood.id)
-#if only one item no need to sort
-    if match:
-        if (len(match) > 1): 
-            match = sortByType(match,ctt)
-    return match
-
-#check if the blood item contain ctt add more if you want 
+#check if the blood item contain user input (key word)
+#customer can search by type, volume (all the blood itmes have more than require volume are added to match), and donor 
 def checkMatch(blood,ctt):
     if (blood.bloodtype == ctt):
         return True
@@ -59,79 +53,76 @@ def checkMatch(blood,ctt):
     elif (blood.donor == ctt):
         return True
     else:
-        return False
+        return False 
 
-#simple sort by type 
-def sortByType(match,ctt):
-    Alist = list()
-    Blist = list()
-    ABlist = list()
-    Olist = list()
-    
-    for id in match:
-        blood = Blood.objects.filter(Q(id=id))[:1].get()
-        if (blood.bloodtype == 'A'):
-            Alist.append(id)
-        elif (blood.bloodtype == 'B'):
-            Blist.append(id)
-        elif (blood.bloodtype == 'AB'):
-            ABlist.append(id)
-        elif (blood.bloodtype == 'O'):
-            Olist.append(id)
+#three method pass in a list of blood items display sorted blood list after customer select sorted method  
+#init search have no order we will let customer to choose sort method (display all match reault with no order)
+#make search by volumn donor and type do we need more searching field?  
+def searchlist(ctt):
+    match = list()
+    for blood in Blood.objects.all():
+        if checkMatch(blood,ctt):
+            #matching result 
+            match.append(blood)
+    if match:
+        #if only one item no need to sort
+        if (len(match) > 1): 
+            #match = sortByVolumn(match)
+            match = sortByType(match)
+            #match = sortByExpDate(match)
+    return match
 
-    sortedA =sortByExpDate(Alist)
-    sortedB =sortByExpDate(Blist)
-    sortedAB =sortByExpDate(ABlist)
-    sortedO =sortByExpDate(Olist)
+#use list to sort by type 
+def sortByType(match):
 
-    sortedA.extend(sortedB)
-    sortedA.extend(sortedAB)
-    sortedA.extend(sortedO)
+    i = len(match)
+    m = 0
+    while (i > 0): 
+        m = MaxIdxTo(match, i - 1)
+        match[m], match[i - 1] = match[i - 1], match[m]
+        i = i - 1
+    return match
 
-    return sortedA
-       
+def MaxIdxTo(match,j): 
+    imax = 0
+    i = 0
+    while (i <= j):
+        if (match[i].bloodtype > match[imax].bloodtype): 
+           imax = i
+        i = i + 1
+    return imax
 
-#bubble sort(google it) by ExpireDate 
+#bubble sort by Expire date 
 def sortByExpDate(match):
     sort = list()
-    if match:
-        array = create2D(match)
-        i = 0
-        while i < len(match):
-            j = 0
-            newlen = len(match) - i - 1
-            while j < newlen:
-                if (array[j][1] < array[j+1][1]): 
-                    array[j][0], array[j+1][0] = array[j+1][0], array[j][0]
-                    array[j][1], array[j+1][1] = array[j+1][1], array[j][1]
-                j+=1
-            i+=1
-#convert 2d array[0] back to list           
-        i = 0        
-        while i < len(match): 
-            sort.append(array[i][0])
-            i+=1
-
-    return sort
-
-#we need this since we compare expdate but sort id 
-#and the inner forloop should loop through the array contain both id and expdate
-#we also need a index number to sort
-def create2D (match):
-    array = [[0 for x in range(0)]for y in range(len(match))]
-    newMatch = Blood.objects.filter(Q(id__in=match))
     i = 0
-
     while i < len(match):
-        id = match[i]
-        blood = Blood.objects.filter(Q(id=id))[:1].get()
-        array[i].append(blood.id)
-        array[i].append(blood.expdate)
-        i=i+1
-    return array
+        j = 0
+        newlen = len(match) - i - 1
+        while j < newlen:
+            if (match[j].expdate < match[j+1].expdate): 
+                match[j], match[j+1] = match[j+1], match[j]
+            j+=1
+        i+=1        
+    return match
 
 
+#insertion sort by volumn  
+def sortByVolumn(match): 
+    i = 1
+    while i < len(match):
+        j = i
+        while match[j].volume <= match[j-1].volume and j > 0:
+            match[j],match[j-1] = match[j-1],match[j]
+            j = j -1
+        i += 1
+    #print(match)
+    return match
 
+    
+#book blood it is like checkout of blood item
+#book one blood item one time
+#set isBooked attribut to be true and add booked to user's booked list 
 @login_required
 def bookBlood(request, id):
     # get beach id
@@ -158,6 +149,9 @@ def bookBlood(request, id):
 
     return render(request, 'bloodprofile/booking.html', {'blood':blood,'form':form})
 
+#make reservation let customer request for a certain amount of blood 
+#customers can specify the date they want to receive reservated blood
+#create new reservation form and add to \admin 
 @login_required
 def makeResveration(request):
     user_name = request.user.username
@@ -178,20 +172,20 @@ def makeResveration(request):
 
     return render(request, 'bloodprofile/Reservation.html', {'form': form},RequestContext(request))
 
+#redirect to home page 
 def index(request):
     
     submitbutton= request.POST.get('Home')
 
     if submitbutton:
         # execute this code
-    
         context= {'submitbutton': submitbutton}
-
-        
+   
     return render(request, 'Articles/index.html', context)
 
-
-def delete_reservation(request, id):#reservation id
+#delete a exist reservation
+#delete exist blood form in /admin(django)
+def delete_reservation(request, id):
     re = Reservation.objects.filter(id=id)
     bk = Book.objects.filter(userBooked=request.user.username)
     re.delete()
@@ -205,6 +199,8 @@ def delete_reservation(request, id):#reservation id
     }
     return render(request, 'users/profile.html',context)
 
+#customer donate blood
+#create a blood form and add to /admin(django)
 @login_required
 def donate_blood(request):
     user_name = request.user.username
