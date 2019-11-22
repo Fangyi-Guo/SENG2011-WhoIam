@@ -157,7 +157,7 @@ def bookBlood(request, id):
 @login_required
 def makeResveration(request):
     user_name = request.user.username
-    # if this is a POST request we need to process the form data
+    # if this is a POST request we need to eprocss the form data
     form = ReserveForm(request.POST)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:

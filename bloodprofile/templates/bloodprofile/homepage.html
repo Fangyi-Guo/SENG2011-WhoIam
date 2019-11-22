@@ -151,7 +151,7 @@
                         <p class="card-service__subtitle">expire date: {{ result.expdate }}</p>
                         <p class="card-service__subtitle">Volume {{ result.volume }} ml</p>
                         <a class="btn btn-primary"
-                        href="{% url 'blood-booking' result.id %}">Book now!</a>
+                        href="{% url 'blood-booking' result.id %}">checkout now!</a>
                     </div>   
                 </div>
                 </div>
@@ -191,7 +191,7 @@
 
                             <div id="0"  class="content" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div>
-                                    <p>You can book a single blood item or request for a certain amount of blood by blood type </p>
+                                    <p>You can checkout a single blood item or request for a certain amount of blood by blood type </p>
                                 </div>
                             </div>
                         </div>
@@ -221,7 +221,7 @@
                             </div>
                             <div id="2" class="content" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    All the blood items we have were tested by authoritative al pathology or a hospital, and we remove bloods from our inventory by expire date periodly.
+                                    All the blood items we have were tested by authoritative al pathology or a hospital (untested blood items won't show when you search), and we remove bloods from our inventory by expire date periodly.
                                 </div>
                             </div>
                         </div>
@@ -236,22 +236,22 @@
                             </div>
                             <div id= "3" class="content" aria-labelledby="headingFour" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    You can search for a blood item by blood type, volume and donor.
+                                    You can search for a blood item by blood type, volume (all the bloock items have more than request bolume will be displayed) and donor.
                                 </div>
                             </div>
                         </div>
 
                         <div class="card">
-                            <div class="card-header" id="headingFive">
+                            <div class="card-header" id="headingFour">
                                 <h5 class="mb-0">
-                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        
+                                    <button class="collapsible" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Where is my booking history?
                                     </button>
                                 </h5>
                             </div>
-                            <div id="4" class="content" aria-labelledby="headingFive" data-parent="#accordionExample">
+                            <div id= "4" class="content" aria-labelledby="headingFour" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    earth is flat 
+                                    All the history checkout and reservation will be displayed in profile page.
                                 </div>
                             </div>
                         </div>
